@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "908064767353",
+    "project_id": "krow-4c60c",
+    "storage_bucket": "krow-4c60c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908064767353:android:794891b0d1960b5ced43a8",
+        "android_client_info": {
+          "package_name": "com.example.Krow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908064767353-9009oc90p91q9loqdj0du3ekiqolq2u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBij4iHzQHuJbojHt50LTHkMnJqOSdWaMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908064767353-9009oc90p91q9loqdj0du3ekiqolq2u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
