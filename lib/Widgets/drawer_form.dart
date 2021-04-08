@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/Jobs_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:krow1/Screens/profile_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../Providers/User.dart';
+import '../Screens/Jobs_screen.dart';
+import '../Screens/home_screen.dart';
+import '../Screens/profile_screen.dart';
 
 class DrawerForm extends StatefulWidget {
   @override
@@ -49,6 +52,7 @@ class _DrawerFormState extends State<DrawerForm> {
               ),
             ),
           ),
+          Divider(),
           FlatButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, ProfileScreen.routName);
@@ -81,11 +85,44 @@ class _DrawerFormState extends State<DrawerForm> {
               ),
             ),
           ),
+          Divider(),
           FlatButton(
             onPressed: () {
-              setState(() {
-                FirebaseAuth.instance.signOut();
-              });
+              Navigator.of(context).pushNamed(HomeScreen.routName);
+            },
+            child: Container(
+              child: Row(
+                children: [
+                  ClipRRect(
+                    child: Image.network(
+                        'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  Container(
+                    width: 20,
+                  ),
+                  Text(
+                    'Home Screen',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.start,
+              ),
+              width: double.infinity - 10,
+              height: 50,
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.lightBlue,
+              ),
+            ),
+          ),
+          Divider(),
+          FlatButton(
+            onPressed: () {
+              Provider.of<User>(context).signOut();
             },
             child: Container(
               child: Row(
@@ -115,7 +152,7 @@ class _DrawerFormState extends State<DrawerForm> {
                 color: Colors.lightBlue,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

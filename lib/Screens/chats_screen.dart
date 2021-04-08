@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Chats.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/chat.dart';
+import '../Providers/Chats.dart';
+import '../Providers/User.dart';
 import '../Widgets/drawer_form.dart';
 
 class ChatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Chat> allChats = Provider.of<Chats>(context).chats;
-    Future GetUid(String uid) async {
-      var user = await FirebaseAuth.instance.currentUser();
-      uid = user.uid;
-    }
-
-    String uid;
-    GetUid(uid);
+    String uid = Provider.of<User>(context).uid;
 
     List<Chat> chats = allChats.where(
       (element) => (element.uid1 == uid || element.uid2 == uid),

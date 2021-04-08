@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
+import 'package:krow1/models/job.dart';
+
 class JobTile extends StatefulWidget {
-  String jobTitle;
-  String imageURL;
-  String description;
-  String payment;
+  Job job;
   bool isFav;
 
   JobTile({
-    @required this.jobTitle,
-    @required this.imageURL,
-    @required this.description,
-    @required this.payment,
+    @required this.job,
     @required this.isFav,
   });
 
@@ -29,7 +25,7 @@ class _JobTileState extends State<JobTile> {
           Row(
             children: [
               Container(
-                child: Image.network(widget.imageURL),
+                child: Image.network(widget.job.imageUrl),
                 width: 70,
                 padding: EdgeInsets.all(5),
                 decoration:
@@ -38,7 +34,7 @@ class _JobTileState extends State<JobTile> {
               SizedBox(
                 width: 20,
               ),
-              Text(widget.jobTitle),
+              Text(widget.job.title),
               SizedBox(
                 width: 200,
               ),
@@ -62,7 +58,7 @@ class _JobTileState extends State<JobTile> {
             mainAxisAlignment: MainAxisAlignment.start,
           ),
           Container(
-            child: Text(widget.description),
+            child: Text(widget.job.description),
             padding: EdgeInsets.all(10),
           )
         ],

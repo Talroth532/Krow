@@ -100,4 +100,8 @@ class User with ChangeNotifier {
   Users get currentUser {
     return this.curUse;
   }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }

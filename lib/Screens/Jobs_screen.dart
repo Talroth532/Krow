@@ -28,10 +28,7 @@ class _JobsScreenState extends State<JobsScreen> {
           itemBuilder: (ctx, index) {
             return FlatButton(
               child: JobTile(
-                jobTitle: jobs[index].title,
-                imageURL: jobs[index].imageUrl,
-                description: jobs[index].description,
-                payment: jobs[index].payment,
+                job: jobs[index],
                 isFav: false,
               ),
               onPressed: () {
