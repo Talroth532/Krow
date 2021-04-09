@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ChatTile extends StatefulWidget {
+  final String otherId;
+
+  ChatTile({
+    @required this.otherId,
+  });
+
   @override
   _ChatTileState createState() => _ChatTileState();
 }

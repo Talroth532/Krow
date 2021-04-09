@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 class Job {
-  String id;
   String title;
   String description;
   String imageUrl;
