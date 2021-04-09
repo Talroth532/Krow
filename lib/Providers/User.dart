@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +14,7 @@ class User with ChangeNotifier {
   Users curUse;
   String imageUrl;
   String uid;
+  Users idUser;
 
   Future<String> submitAuthForm(
     String email,
@@ -87,10 +90,9 @@ class User with ChangeNotifier {
         imageUrl: doc['imageUrl']);
   }
 
-  Future<String> getCurrentUid() async {
+  Future<void> getCurrentUid() async {
     var user = await FirebaseAuth.instance.currentUser();
     uid = user.uid;
-    return uid;
   }
 
   String get userid {
@@ -103,5 +105,19 @@ class User with ChangeNotifier {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> getIdUser(String id) async {
+    var usrsp = await Firestore.instance.collection('users').document(id).get();
+    this.idUser = Users(
+      email: usrsp.data['email'],
+      username: usrsp.data['username'],
+      imageUrl: usrsp.data['imageUrl'],
+      phone: usrsp.data['phone'],
+    );
+  }
+
+  Users get userWithId {
+    return this.idUser;
   }
 }

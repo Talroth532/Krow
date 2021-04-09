@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Widgets/chat_tile.dart';
 import 'package:provider/provider.dart';
 
 import '../models/chat.dart';
@@ -26,7 +27,9 @@ class ChatsScreen extends StatelessWidget {
         body: chats != null
             ? ListView.builder(
                 itemBuilder: (ctx, index) {
-                  return null;
+                  return ChatTile(
+                    chat: chats[index],
+                  );
                 },
                 itemCount: chats.length,
               )
