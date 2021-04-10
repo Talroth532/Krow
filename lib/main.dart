@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/chats_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           JobScreen.routeName: (ctx) => JobScreen(),
           ProfileScreen.routName: (ctx) => ProfileScreen(),
           PostJobScreen.routeName: (ctx) => PostJobScreen(),
+          ChatsScreen.routename: (ctx) => ChatsScreen(),
         },
       ),
     );

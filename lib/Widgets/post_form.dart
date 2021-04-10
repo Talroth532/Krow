@@ -68,60 +68,70 @@ class _PostFormState extends State<PostForm> {
         child: Column(
           children: [
             UserImagePicker(_pickedImage),
-            TextFormField(
-              key: ValueKey('title'),
-              validator: (value) {
-                if (value.isEmpty || value.length < 4) {
-                  return 'Please enter a valid title.';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: 'Title',
+            Padding(
+              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+              child: TextFormField(
+                key: ValueKey('title'),
+                validator: (value) {
+                  if (value.isEmpty || value.length < 4) {
+                    return 'Please enter a valid title.';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                ),
+                onSaved: (value) {
+                  _title = value;
+                },
               ),
-              onSaved: (value) {
-                _title = value;
-              },
             ),
-            TextFormField(
-              key: ValueKey('description'),
-              validator: (value) {
-                if (value.isEmpty || value.length < 10) {
-                  return 'Please enter a valid description.';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                labelText: 'Description',
+            Padding(
+              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+              child: TextFormField(
+                key: ValueKey('description'),
+                validator: (value) {
+                  if (value.isEmpty || value.length < 10) {
+                    return 'Please enter a valid description.';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                ),
+                onSaved: (value) {
+                  _description = value;
+                },
               ),
-              onSaved: (value) {
-                _description = value;
-              },
             ),
-            TextFormField(
-              key: ValueKey('payment'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter a valid email address.';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Payment',
+            Padding(
+              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+              child: TextFormField(
+                key: ValueKey('payment'),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a valid email address.';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Payment',
+                ),
+                onSaved: (value) {
+                  _payment = value;
+                },
               ),
-              onSaved: (value) {
-                _payment = value;
-              },
             ),
-            RaisedButton(
-              child: Container(
-                color: Colors.lightBlue,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: RaisedButton(
                 child: Text('Post'),
+                onPressed: _trySubmit,
+                color: Colors.lightBlue,
               ),
-              onPressed: _trySubmit,
             )
           ],
         ),

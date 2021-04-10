@@ -13,11 +13,15 @@ class PostJobScreen extends StatelessWidget {
     String posterId = Provider.of<User>(context).userid;
     Function postFn = Provider.of<Jobs>(context).uploadJob;
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Theme.of(context).primaryColor,
-      body: PostForm(
-        postFn,
-        posterId,
+      appBar: AppBar(
+        title: Text('Job Post'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: PostForm(
+          postFn,
+          posterId,
+        ),
       ),
     );
   }

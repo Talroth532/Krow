@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/chats_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/User.dart';
@@ -18,142 +19,177 @@ class _DrawerFormState extends State<DrawerForm> {
       appBar: AppBar(
         title: Text('Find A  Job'),
       ),
-      body: Column(
-        children: [
-          FlatButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, JobsScreen.routeName);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  ClipRRect(
-                    child: Image.network(
-                        'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Text(
-                    'Jobs',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-              ),
-              width: double.infinity - 10,
-              height: 50,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.lightBlue,
-              ),
-            ),
-          ),
-          Divider(),
-          FlatButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, ProfileScreen.routName);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  ClipRRect(
-                    child: Image.network(
-                        'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Text(
-                    'Profile',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-              ),
-              width: double.infinity - 10,
-              height: 50,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.lightBlue,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, JobsScreen.routeName);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Jobs',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
               ),
             ),
-          ),
-          Divider(),
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(HomeScreen.routName);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  ClipRRect(
-                    child: Image.network(
-                        'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Text(
-                    'Home Screen',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-              ),
-              width: double.infinity - 10,
-              height: 50,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.lightBlue,
-              ),
-            ),
-          ),
-          Divider(),
-          FlatButton(
-            onPressed: () {
-              Provider.of<User>(context).signOut();
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  ClipRRect(
-                    child: Image.network(
-                        'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  Container(
-                    width: 20,
-                  ),
-                  Text(
-                    'Log Out',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-              ),
-              width: double.infinity - 10,
-              height: 50,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.lightBlue,
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, ProfileScreen.routName);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Profile',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
               ),
             ),
-          ),
-        ],
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, ChatsScreen.routename);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Profile',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Home Screen',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Provider.of<User>(context, listen: false).signOut();
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Log Out',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

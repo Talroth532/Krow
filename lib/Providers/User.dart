@@ -105,6 +105,7 @@ class User with ChangeNotifier {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
+    notifyListeners();
   }
 
   Future<void> getIdUser(String id) async {
