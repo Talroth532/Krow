@@ -46,13 +46,13 @@ class SlideableHome extends StatelessWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      '',
+                      'https://image.freepik.com/free-vector/beautiful-mandala-style-background-with-text-space_1017-27397.jpg',
                       height: double.infinity,
                       fit: BoxFit.fill,
                     ),
                     Container(
                       child: Text(
-                        'Post\n\nA\n\nJob',
+                        'Post A Job',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 30,

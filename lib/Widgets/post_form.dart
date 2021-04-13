@@ -73,7 +73,7 @@ class _PostFormState extends State<PostForm> {
               child: TextFormField(
                 key: ValueKey('title'),
                 validator: (value) {
-                  if (value.isEmpty || value.length < 4) {
+                  if (value.isEmpty || value.length < 4 && value.length > 8) {
                     return 'Please enter a valid title.';
                   }
                   return null;
