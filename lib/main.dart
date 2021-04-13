@@ -38,7 +38,13 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.onAuthStateChanged,
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
-              return HomeScreen();
+              return FutureBuilder(
+                  future: FirebaseAuth.instance.currentUser(),
+                  builder: (ctx, AsyncSnapshot<FirebaseUser> spt) {
+                    if (spt.data.uid != null)
+                      Provider.of<User>(ctx).refreshUserData(spt.data.uid);
+                    return HomeScreen();
+                  });
             }
             return AuthScreen();
           },

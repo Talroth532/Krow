@@ -27,11 +27,10 @@ class _ChatTileState extends State<ChatTile> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
+        color: Colors.lightBlue,
       ),
-      color: Colors.lightBlue,
       child: Row(
         children: [
-          Image.network(otherUser.imageUrl),
           Text(
             otherUser.username,
           )

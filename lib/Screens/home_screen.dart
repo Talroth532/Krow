@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Chats.dart';
-import 'package:krow1/Providers/User.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'package:krow1/Screens/post_job_screen.dart';
+import '../Providers/Chats.dart';
+import '../Providers/User.dart';
+import '../Screens/post_job_screen.dart';
 import '../Providers/Jobs.dart';
-import 'Jobs_screen.dart';
+import '../Screens/Jobs_screen.dart';
+import '../Widgets/Slideable.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routName = '/HomeScreen';
@@ -104,12 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
             // ),
             Slidable(
           key: const Key('id'),
-          child: Text('Swipe To go'),
+          child: SlideableHome(),
           delegate: new SlidableDrawerDelegate(),
           leftActions: [
             IconSlideAction(
               caption: 'Find A Job',
-              color: Colors.lightBlue,
+              color: Colors.green,
               icon: Icons.control_point_rounded,
               onTap: () {
                 Navigator.of(context).pushNamed(JobsScreen.routeName);
@@ -119,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
           rightActions: [
             IconSlideAction(
               caption: 'Post A Job',
-              color: Colors.lightBlue,
+              color: Colors.purple,
               icon: Icons.control_point_rounded,
               onTap: () {
                 Navigator.of(context).pushNamed(PostJobScreen.routeName);

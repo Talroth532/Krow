@@ -47,6 +47,8 @@ class User with ChangeNotifier {
 
         await ref.putFile(image).onComplete;
 
+        uid = authresult.user.uid;
+
         await Firestore.instance
             .collection('users')
             .document(authresult.user.uid)
@@ -90,15 +92,6 @@ class User with ChangeNotifier {
         imageUrl: doc['imageUrl']);
   }
 
-  Future<void> getCurrentUid() async {
-    var user = await FirebaseAuth.instance.currentUser();
-    uid = user.uid;
-  }
-
-  String get userid {
-    return this.uid;
-  }
-
   Users get currentUser {
     return this.curUse;
   }
@@ -120,5 +113,9 @@ class User with ChangeNotifier {
 
   Users get userWithId {
     return this.idUser;
+  }
+
+  void refreshUserData(String uid) {
+    this.uid = uid;
   }
 }
