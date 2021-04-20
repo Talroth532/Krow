@@ -19,11 +19,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
-    Provider.of<Jobs>(context).fetchAndSetJobs().then((value) {
-      Provider.of<Chats>(context).fetchAndSetChats().then((value) {
-        Provider.of<Chats>(context).fetchAndSetChats().then((value) {
-          Provider.of<User>(context).getCurrentUserData();
-        });
+    Provider.of<Jobs>(context, listen: false).fetchAndSetJobs().then((value) {
+      Provider.of<Chats>(context, listen: false)
+          .fetchAndSetChats()
+          .then((value) {
+        Provider.of<User>(context, listen: false).getCurrentUserData();
       });
     });
 

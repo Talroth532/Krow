@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:krow1/Providers/Fav.dart';
+import 'package:krow1/Providers/User.dart';
 
 import 'package:krow1/models/job.dart';
+import 'package:provider/provider.dart';
 
 class JobTile extends StatefulWidget {
-  Job job;
+  final Job job;
   bool isFav;
 
   JobTile({
@@ -19,6 +22,8 @@ class JobTile extends StatefulWidget {
 class _JobTileState extends State<JobTile> {
   @override
   Widget build(BuildContext context) {
+    String uid = Provider.of<User>(context).uid;
+    Function changeFav = Provider.of<Fav>(context).updateStatus;
     return Card(
       child: Column(
         children: [
@@ -31,13 +36,7 @@ class _JobTileState extends State<JobTile> {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(20)),
               ),
-              SizedBox(
-                width: 20,
-              ),
               Text(widget.job.title),
-              SizedBox(
-                width: 200,
-              ),
               IconButton(
                 icon: widget.isFav
                     ? Icon(
@@ -51,6 +50,7 @@ class _JobTileState extends State<JobTile> {
                 onPressed: () {
                   setState(() {
                     widget.isFav = !widget.isFav;
+                    changeFav(uid, widget.job.id, widget.isFav);
                   });
                 },
               )

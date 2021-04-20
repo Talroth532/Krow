@@ -16,6 +16,7 @@ class Jobs with ChangeNotifier {
     var docs = jobSnapshot.documents;
     List<Job> jobs = List<Job>.generate(docs.length, (index) {
       return Job(
+          id: docs[index].documentID,
           title: docs[index]['title'],
           description: docs[index]['description'],
           imageUrl: docs[index]['imageUrl'],

@@ -23,11 +23,8 @@ class User with ChangeNotifier {
     String phone,
     File image,
     bool isLogin,
-    bool _isLoading,
   ) async {
     try {
-      _isLoading = true;
-      notifyListeners();
       if (isLogin) {
         authresult = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
@@ -43,9 +40,9 @@ class User with ChangeNotifier {
             .ref()
             .child('user_image')
             .child(authresult.user.uid + '.jpg');
-        final url = ref.getDownloadURL().toString();
-
         await ref.putFile(image).onComplete;
+
+        final url = await ref.getDownloadURL();
 
         uid = authresult.user.uid;
 
@@ -67,13 +64,9 @@ class User with ChangeNotifier {
         message = err.message;
       }
 
-      _isLoading = false;
-      notifyListeners();
       return message;
     } catch (err) {
       print(err);
-      _isLoading = false;
-      notifyListeners();
       return err;
     }
   }
