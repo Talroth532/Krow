@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../models/job.dart';
 
 class JobScreen extends StatefulWidget {
-  static const routeName = '/Jobscreen';
+  static const routeName = '/JobScreen';
   // final Job job;
 
   // JobScreen(this.job );

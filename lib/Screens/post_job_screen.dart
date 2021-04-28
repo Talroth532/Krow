@@ -7,7 +7,7 @@ import '../Providers/User.dart';
 import '../Widgets/post_drawer.dart';
 
 class PostJobScreen extends StatelessWidget {
-  static const routeName = '/Postjobscreen';
+  static const routeName = '/PostJobScreen';
 
   @override
   Widget build(BuildContext context) {

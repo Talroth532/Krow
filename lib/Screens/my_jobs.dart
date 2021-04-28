@@ -4,13 +4,16 @@ import 'package:krow1/Providers/User.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/post_drawer.dart';
+import '../Widgets/my_job_tile.dart';
 
-class MyJobs extends StatefulWidget {
+class MyJobScreen extends StatefulWidget {
+  static const String routeName = '/MyJobScreen';
+
   @override
-  _MyJobsState createState() => _MyJobsState();
+  _MyJobScreenState createState() => _MyJobScreenState();
 }
 
-class _MyJobsState extends State<MyJobs> {
+class _MyJobScreenState extends State<MyJobScreen> {
   @override
   Widget build(BuildContext context) {
     var allJobs = Provider.of<Jobs>(context).jobs;
@@ -24,7 +27,9 @@ class _MyJobsState extends State<MyJobs> {
       ),
       drawer: PostDrawer(),
       body: ListView.builder(
-        itemBuilder: null,
+        itemBuilder: (ctx, index) {
+          return MyJobTile(job: myJobs[index]);
+        },
         itemCount: myJobs.length,
       ),
     );
