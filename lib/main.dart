@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Fav.dart';
-import 'package:krow1/Screens/chats_screen.dart';
-import 'package:krow1/Screens/my_jobs.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import './Providers/Fav.dart';
+import './Screens/chats_screen.dart';
+import './Screens/my_jobs.dart';
 import './Providers/User.dart';
 import './Screens/post_job_screen.dart';
-import 'Screens/job_screen.dart';
+import './Screens/job_screen.dart';
 import './Screens/profile_screen.dart';
 import './Screens/home_screen.dart';
 import './Providers/Chats.dart';
 import './Screens/auth_screen.dart';
 import './Providers/Jobs.dart';
-import 'Screens/Jobs_screen.dart';
+import './Screens/Jobs_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

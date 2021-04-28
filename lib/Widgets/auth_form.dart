@@ -164,7 +164,7 @@ class _AuthFormState extends State<AuthForm> {
                     RaisedButton(
                       child: Text(_isLogin ? 'Login' : 'Signup'),
                       onPressed: () {
-                        _trySubmit;
+                        _trySubmit();
                       },
                     ),
                   if (!widget._isLoading)

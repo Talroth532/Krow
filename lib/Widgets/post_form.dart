@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/my_jobs.dart';
 
 import '../pickers/user_image_picker.dart';
 
@@ -129,7 +130,9 @@ class _PostFormState extends State<PostForm> {
               padding: EdgeInsets.all(20),
               child: RaisedButton(
                 child: Text('Post'),
-                onPressed: _trySubmit,
+                onPressed: () {
+                  _trySubmit();
+                },
                 color: Colors.lightBlue,
               ),
             )

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 
-import '../Providers/Fav.dart';
-import '../Providers/User.dart';
 import '../models/job.dart';
 
 class MyJobTile extends StatefulWidget {
@@ -20,8 +17,6 @@ class MyJobTile extends StatefulWidget {
 class _MyJobTileState extends State<MyJobTile> {
   @override
   Widget build(BuildContext context) {
-    String uid = Provider.of<User>(context).uid;
-    Function changeFav = Provider.of<Fav>(context).updateStatus;
     return Card(
       child: Column(
         children: [

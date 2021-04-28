@@ -131,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.purple,
               icon: Icons.control_point_rounded,
               onTap: () {
-                Navigator.of(context).pushNamed(PostJobScreen.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(PostJobScreen.routeName);
               },
             )
           ],
