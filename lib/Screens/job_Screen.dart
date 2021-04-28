@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Chats.dart';
+import 'package:krow1/Providers/User.dart';
+import 'package:krow1/models/user.dart';
+import 'package:provider/provider.dart';
 
 import '../models/job.dart';
 
@@ -15,6 +19,7 @@ class JobScreen extends StatefulWidget {
 class _JobScreenState extends State<JobScreen> {
   @override
   Widget build(BuildContext context) {
+    String curUseUid = Provider.of<User>(context).uid;
     final routeArgs = ModalRoute.of(context).settings.arguments as Job;
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +47,29 @@ class _JobScreenState extends State<JobScreen> {
                     Container(
                         child: Text('Payment :\t' + routeArgs.payment),
                         padding: EdgeInsets.all(10)),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(width: 100),
+                        RaisedButton(
+                          onPressed: () {
+                            int index = Provider.of<Chats>(context)
+                                .chats
+                                .indexWhere((element) {
+                              return (element.uid1 == routeArgs.posterId ||
+                                      element.uid1 == routeArgs.posterId) &&
+                                  (element.uid1 == curUseUid ||
+                                      element.uid2 == curUseUid);
+                            });
+                            if (index != -1) {
+                            } else {}
+                          },
+                          child: Container(),
+                        )
+                      ],
+                    )
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),

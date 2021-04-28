@@ -1,10 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:krow1/Providers/User.dart';
-import 'package:krow1/models/userJob.dart';
+import '../models/userJob.dart';
 
 class Fav with ChangeNotifier {
   String uid;
@@ -16,13 +13,16 @@ class Fav with ChangeNotifier {
     var favSnapshot =
         await Firestore.instance.collection('user-job').getDocuments();
     var docs = favSnapshot.documents;
-    for (int i; i < docs.length; i++) {
+    for (int i = 0; i < docs.length; i++) {
       if (docs[i]['uid'] == this.uid) {
-        userJobs.add(UserJob(
+        userJobs.add(
+          UserJob(
             id: docs[i].documentID,
             uid: uid,
             jobId: docs[i]['job id'],
-            isFav: docs[i]['favorite']));
+            isFav: docs[i]['favorite'],
+          ),
+        );
       }
     }
   }
@@ -63,7 +63,11 @@ class Fav with ChangeNotifier {
       await Firestore.instance
           .collection('user-job')
           .document(docs[i].documentID)
-          .setData({'favorite': newFav});
+          .setData({
+        'favorite': newFav,
+        'uid': uid,
+        'job id': jobId,
+      });
     } else {
       createNewFav(uid, jobId, newFav);
     }

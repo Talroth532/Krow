@@ -24,8 +24,12 @@ class ProfileScreen extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                child: Image.network(''),
-                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  child: Image.network(curUse.imageUrl),
+                  height: 100,
+                  width: 100,
+                ),
+                borderRadius: BorderRadius.circular(100),
               ),
               Text('Username:\t' + curUse.username),
             ],

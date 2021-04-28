@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../Providers/Jobs.dart';
 import '../Widgets/post_form.dart';
 import '../Providers/User.dart';
+import '../Widgets/post_drawer.dart';
 
 class PostJobScreen extends StatelessWidget {
   static const routeName = '/Postjobscreen';
@@ -16,6 +17,7 @@ class PostJobScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Job Post'),
       ),
+      drawer: PostDrawer(),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: PostForm(

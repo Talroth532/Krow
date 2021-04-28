@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Message {
   String text;
   String posterId;

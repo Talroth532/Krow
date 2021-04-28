@@ -31,6 +31,7 @@ class _ChatTileState extends State<ChatTile> {
       ),
       child: Row(
         children: [
+          Image.network(otherUser.imageUrl),
           Text(
             otherUser.username,
           )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/User.dart';
 import 'package:krow1/models/userJob.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +16,18 @@ class JobsScreen extends StatefulWidget {
 }
 
 class _JobsScreenState extends State<JobsScreen> {
+  bool checkIfExist(List<UserJob> userjobs, Job job) {
+    if (userjobs.firstWhere((element) {
+          return element.jobId == job.id;
+        }, orElse: () => null) !=
+        null) {
+      return userjobs.firstWhere((element) {
+        return element.jobId == job.id;
+      }, orElse: () => null).isFav;
+    } else
+      return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Job> jobs = Provider.of<Jobs>(context).jobs;
@@ -30,13 +41,11 @@ class _JobsScreenState extends State<JobsScreen> {
         ),
         body: ListView.builder(
           itemBuilder: (ctx, index) {
-            Provider.of<Fav>(context).fetchUidFavStatus();
             return FlatButton(
               child: JobTile(
-                  job: jobs[index],
-                  isFav: userJobs.firstWhere((element) {
-                    return element.jobId == jobs[index].id;
-                  }).isFav),
+                job: jobs[index],
+                isFav: checkIfExist(userJobs, jobs[index]),
+              ),
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(JobScreen.routeName, arguments: jobs[index]);

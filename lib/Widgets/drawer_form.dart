@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/auth_screen.dart';
 import 'package:krow1/Screens/chats_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -104,7 +105,7 @@ class _DrawerFormState extends State<DrawerForm> {
                       width: 20,
                     ),
                     Text(
-                      'Profile',
+                      'Chats',
                       textAlign: TextAlign.center,
                     ),
                   ],

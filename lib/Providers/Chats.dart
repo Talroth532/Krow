@@ -44,4 +44,17 @@ class Chats with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<void> createNewChat(String uid1, String uid2) async {
+    var doc = await Firestore.instance
+        .collection('chats')
+        .add({'uid1': uid1, 'uid2': uid2});
+    var docid = doc.documentID;
+    chats.add(Chat(
+      uid1: uid1,
+      uid2: uid2,
+      messages: [],
+      id: docid,
+    ));
+  }
 }

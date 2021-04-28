@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:krow1/Screens/home_screen.dart';
 import 'dart:io';
 
 import '../pickers/user_image_picker.dart';
@@ -9,7 +11,7 @@ class AuthForm extends StatefulWidget {
     this._isLoading,
   );
 
-  final Future<void> Function(
+  final Future<String> Function(
     String email,
     String password,
     String userName,
@@ -37,7 +39,7 @@ class _AuthFormState extends State<AuthForm> {
     _userImageFile = image;
   }
 
-  Future<bool> _trySubmit() async {
+  Future<void> _trySubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
@@ -48,22 +50,37 @@ class _AuthFormState extends State<AuthForm> {
           backgroundColor: Colors.red,
         ),
       );
-      return true;
     }
 
     if (isValid) {
       _formKey.currentState.save();
-      await widget.submitFn(
-        _userEmail.trim(),
-        _userPassword.trim(),
-        _userName.trim(),
-        _userPhone.trim(),
-        _userImageFile,
-        _isLogin,
-      );
-      return true;
+      try {
+        await widget.submitFn(
+          _userEmail.trim(),
+          _userPassword.trim(),
+          _userName.trim(),
+          _userPhone.trim(),
+          _userImageFile,
+          _isLogin,
+        );
+      } on PlatformException catch (err) {
+        var message = 'An error occured, plese check your credentials';
+
+        if (err.message != null) {
+          message = err.message;
+        }
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ));
+      } catch (err) {
+        print(err);
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(err),
+          backgroundColor: Colors.red,
+        ));
+      }
     }
-    return false;
   }
 
   @override
@@ -146,7 +163,9 @@ class _AuthFormState extends State<AuthForm> {
                   if (!widget._isLoading)
                     RaisedButton(
                       child: Text(_isLogin ? 'Login' : 'Signup'),
-                      onPressed: _trySubmit,
+                      onPressed: () {
+                        _trySubmit;
+                      },
                     ),
                   if (!widget._isLoading)
                     FlatButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Fav.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -24,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
           .fetchAndSetChats()
           .then((value) {
         Provider.of<User>(context, listen: false).getCurrentUserData();
-      });
+      }).then((value) => Provider.of<Fav>(context).fetchUidFavStatus());
+      ;
     });
 
     super.didChangeDependencies();
@@ -118,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.green,
               icon: Icons.control_point_rounded,
               onTap: () {
-                Navigator.of(context).pushNamed(JobsScreen.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(JobsScreen.routeName);
               },
             )
           ],

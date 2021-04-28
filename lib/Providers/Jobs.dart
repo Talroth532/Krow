@@ -1,8 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 
 import '../models/job.dart';
 
@@ -46,7 +46,16 @@ class Jobs with ChangeNotifier {
         .ref()
         .child('job_image')
         .child(doc.documentID + '.jpg');
-
     ref.putFile(image);
+
+    imageUrl = await ref.getDownloadURL();
+
+    doc.setData({
+      'title': title,
+      'description': description,
+      'imageUrl': imageUrl,
+      'payment': payment,
+      'posterId': posterId
+    });
   }
 }

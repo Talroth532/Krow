@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,51 +22,38 @@ class User with ChangeNotifier {
     File image,
     bool isLogin,
   ) async {
-    try {
-      if (isLogin) {
-        authresult = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-      } else {
-        authresult = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+    if (isLogin) {
+      authresult = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } else {
+      authresult = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-        final ref = FirebaseStorage.instance
-            .ref()
-            .child('user_image')
-            .child(authresult.user.uid + '.jpg');
-        await ref.putFile(image).onComplete;
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('user_image')
+          .child(authresult.user.uid + '.jpg');
+      await ref.putFile(image).onComplete;
 
-        final url = await ref.getDownloadURL();
+      imageUrl = await ref.getDownloadURL();
 
-        uid = authresult.user.uid;
+      uid = authresult.user.uid;
 
-        await Firestore.instance
-            .collection('users')
-            .document(authresult.user.uid)
-            .setData({
-          'email': email,
-          'username': username,
-          'phone': phone,
-          'url': url,
-        });
-        return '';
-      }
-    } on PlatformException catch (err) {
-      var message = 'An error occured, plese check your credentials';
-
-      if (err.message != null) {
-        message = err.message;
-      }
-
-      return message;
-    } catch (err) {
-      print(err);
-      return err;
+      await Firestore.instance
+          .collection('users')
+          .document(authresult.user.uid)
+          .setData({
+        'email': email,
+        'username': username,
+        'phone': phone,
+        'url': imageUrl,
+      });
     }
+    return '';
   }
 
   Future<void> getCurrentUserData() async {
@@ -82,7 +67,7 @@ class User with ChangeNotifier {
         email: doc['email'],
         username: doc['username'],
         phone: doc['phone'],
-        imageUrl: doc['imageUrl']);
+        imageUrl: doc['url']);
   }
 
   Users get currentUser {
