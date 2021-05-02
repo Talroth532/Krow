@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:krow1/Providers/Fav.dart';
-import 'package:krow1/Providers/User.dart';
-
-import 'package:krow1/models/job.dart';
 import 'package:provider/provider.dart';
+
+import '../Providers/Fav.dart';
+import '../Providers/User.dart';
+import '../models/job.dart';
 
 class JobTile extends StatefulWidget {
   final Job job;
-  bool isFav;
 
   JobTile({
     @required this.job,
-    @required this.isFav,
   });
 
   @override
@@ -22,7 +20,7 @@ class JobTile extends StatefulWidget {
 class _JobTileState extends State<JobTile> {
   @override
   Widget build(BuildContext context) {
-    String uid = Provider.of<User>(context).uid;
+    String uid = Provider.of<Users>(context).uid;
     Function changeFav = Provider.of<Fav>(context).updateStatus;
     return Card(
       child: Column(
@@ -38,7 +36,7 @@ class _JobTileState extends State<JobTile> {
               ),
               Text(widget.job.title),
               IconButton(
-                icon: widget.isFav
+                icon: Provider.of<Fav>(context).checkIfExist(widget.job)
                     ? Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -49,8 +47,7 @@ class _JobTileState extends State<JobTile> {
                       ),
                 onPressed: () {
                   setState(() {
-                    widget.isFav = !widget.isFav;
-                    changeFav(uid, widget.job.id, widget.isFav);
+                    changeFav(uid, widget.job.id);
                   });
                 },
               )

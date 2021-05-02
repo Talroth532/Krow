@@ -7,12 +7,12 @@ import 'dart:io';
 
 import '../models/user.dart';
 
-class User with ChangeNotifier {
+class Users with ChangeNotifier {
   AuthResult authresult;
-  Users curUse;
+  User curUse;
   String imageUrl;
   String uid;
-  Users idUser;
+  User idUser;
 
   Future<String> submitAuthForm(
     String email,
@@ -63,14 +63,15 @@ class User with ChangeNotifier {
     var userSnapshot =
         await Firestore.instance.collection('users').document(curUid).get();
     var doc = userSnapshot.data;
-    curUse = Users(
+    curUse = User(
+        id: curUid,
         email: doc['email'],
         username: doc['username'],
         phone: doc['phone'],
         imageUrl: doc['url']);
   }
 
-  Users get currentUser {
+  User get currentUser {
     return this.curUse;
   }
 
@@ -81,15 +82,16 @@ class User with ChangeNotifier {
 
   Future<void> getIdUser(String id) async {
     var usrsp = await Firestore.instance.collection('users').document(id).get();
-    this.idUser = Users(
+    this.idUser = User(
+      id: id,
       email: usrsp.data['email'],
       username: usrsp.data['username'],
-      imageUrl: usrsp.data['imageUrl'],
+      imageUrl: usrsp.data['Url'],
       phone: usrsp.data['phone'],
     );
   }
 
-  Users get userWithId {
+  User get userWithId {
     return this.idUser;
   }
 

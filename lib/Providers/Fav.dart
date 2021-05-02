@@ -22,7 +22,6 @@ class Fav with ChangeNotifier {
           id: docs[i].documentID,
           uid: uid,
           jobId: docs[i]['job id'],
-          isFav: docs[i]['favorite'],
         ),
       );
     }
@@ -35,13 +34,11 @@ class Fav with ChangeNotifier {
     var document = await Firestore.instance.collection('user-job').add({
       'uid': uid,
       'job id': jobId,
-      'favorite': true,
     });
     userJobs.add(UserJob(
       id: document.documentID,
       uid: uid,
       jobId: jobId,
-      isFav: true,
     ));
   }
 
@@ -66,15 +63,10 @@ class Fav with ChangeNotifier {
       int index = userJobs.indexWhere((element) {
         return (element.uid == uid && element.jobId == jobId);
       });
-      userJobs[index].isFav = !userJobs[index].isFav;
       await Firestore.instance
           .collection('user-job')
           .document(docs[i].documentID)
-          .setData({
-        'favorite': userJobs[index].isFav,
-        'uid': uid,
-        'job id': jobId,
-      });
+          .delete();
     } else {
       createNewFav(uid, jobId);
     }
@@ -85,9 +77,7 @@ class Fav with ChangeNotifier {
           return element.jobId == job.id;
         }, orElse: () => null) !=
         null) {
-      return userJobs.firstWhere((element) {
-        return element.jobId == job.id;
-      }, orElse: () => null).isFav;
+      return true;
     } else
       return false;
   }

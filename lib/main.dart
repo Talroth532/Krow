@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Contacts.dart';
+import 'package:krow1/models/chat.dart';
+import 'package:krow1/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,6 +17,7 @@ import './Providers/Chats.dart';
 import './Screens/auth_screen.dart';
 import './Providers/Jobs.dart';
 import './Screens/Jobs_screen.dart';
+import './Screens/chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,11 +31,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => Jobs()),
         ChangeNotifierProvider(create: (ctx) => Chats()),
-        ChangeNotifierProvider(create: (ctx) => User()),
-        ChangeNotifierProxyProvider<User, Fav>(
+        ChangeNotifierProvider(create: (ctx) => Users()),
+        ChangeNotifierProxyProvider<Users, Fav>(
           create: null,
           update: (ctx, user, _) => Fav(user.uid),
-        )
+        ),
+        ChangeNotifierProxyProvider<Users, Contacts>(
+          create: null,
+          update: (ctx, user, _) => Contacts(user.uid),
+        ),
       ],
       child: MaterialApp(
         title: 'Krow',
@@ -48,7 +56,7 @@ class MyApp extends StatelessWidget {
                   future: FirebaseAuth.instance.currentUser(),
                   builder: (ctx, AsyncSnapshot<FirebaseUser> spt) {
                     if (spt.data.uid != null)
-                      Provider.of<User>(ctx).refreshUserData(spt.data.uid);
+                      Provider.of<Users>(ctx).refreshUserData(spt.data.uid);
                     return HomeScreen();
                   });
             }
@@ -62,8 +70,9 @@ class MyApp extends StatelessWidget {
           JobScreen.routeName: (ctx) => JobScreen(),
           ProfileScreen.routName: (ctx) => ProfileScreen(),
           PostJobScreen.routeName: (ctx) => PostJobScreen(),
-          ChatsScreen.routename: (ctx) => ChatsScreen(),
+          ChatsScreen.routeName: (ctx) => ChatsScreen(),
           MyJobScreen.routeName: (ctx) => MyJobScreen(),
+          ChatScreen.routeName: (ctx) => ChatScreen(),
         },
       ),
     );

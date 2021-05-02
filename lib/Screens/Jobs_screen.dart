@@ -16,18 +16,6 @@ class JobsScreen extends StatefulWidget {
 }
 
 class _JobsScreenState extends State<JobsScreen> {
-  bool checkIfExist(List<UserJob> userjobs, Job job) {
-    if (userjobs.firstWhere((element) {
-          return element.jobId == job.id;
-        }, orElse: () => null) !=
-        null) {
-      return userjobs.firstWhere((element) {
-        return element.jobId == job.id;
-      }, orElse: () => null).isFav;
-    } else
-      return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Job> jobs = Provider.of<Jobs>(context).jobs;
@@ -44,7 +32,6 @@ class _JobsScreenState extends State<JobsScreen> {
             return FlatButton(
               child: JobTile(
                 job: jobs[index],
-                isFav: checkIfExist(userJobs, jobs[index]),
               ),
               onPressed: () {
                 Navigator.of(context)

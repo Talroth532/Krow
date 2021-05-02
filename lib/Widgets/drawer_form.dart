@@ -91,7 +91,7 @@ class _DrawerFormState extends State<DrawerForm> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, ChatsScreen.routename);
+                Navigator.pushReplacementNamed(context, ChatsScreen.routeName);
               },
               child: Container(
                 child: Row(
@@ -158,7 +158,7 @@ class _DrawerFormState extends State<DrawerForm> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Provider.of<User>(context, listen: false).signOut();
+                Provider.of<Users>(context, listen: false).signOut();
               },
               child: Container(
                 child: Row(

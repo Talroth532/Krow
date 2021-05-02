@@ -41,7 +41,7 @@ class _MyJobTileState extends State<MyJobTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
       elevation: 5,
-      color: Colors.lightBlue,
+      color: Colors.grey[400],
     );
   }
 }

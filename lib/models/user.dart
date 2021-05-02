@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 
-class Users {
+class User {
+  String id;
   String email;
   String username;
   String phone;
   String imageUrl;
 
-  Users({
+  User({
+    @required this.id,
     @required this.email,
     @required this.username,
     @required this.phone,

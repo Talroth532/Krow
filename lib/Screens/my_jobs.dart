@@ -17,7 +17,7 @@ class _MyJobScreenState extends State<MyJobScreen> {
   @override
   Widget build(BuildContext context) {
     var allJobs = Provider.of<Jobs>(context).jobs;
-    var uid = Provider.of<User>(context).uid;
+    var uid = Provider.of<Users>(context).uid;
     var myJobs = allJobs.where((element) {
       return element.posterId == uid;
     }).toList();

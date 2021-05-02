@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Users curUse = Provider.of<User>(context).curUse;
+    User curUse = Provider.of<Users>(context).curUse;
 
     return Scaffold(
       appBar: AppBar(

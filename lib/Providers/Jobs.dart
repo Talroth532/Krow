@@ -46,7 +46,7 @@ class Jobs with ChangeNotifier {
         .ref()
         .child('job_image')
         .child(doc.documentID + '.jpg');
-    ref.putFile(image);
+    await ref.putFile(image).onComplete;
 
     imageUrl = await ref.getDownloadURL();
 
@@ -57,5 +57,12 @@ class Jobs with ChangeNotifier {
       'payment': payment,
       'posterId': posterId
     });
+    _jobs.add(Job(
+        id: doc.documentID,
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        payment: payment,
+        posterId: posterId));
   }
 }

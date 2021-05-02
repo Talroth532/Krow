@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Contacts.dart';
 import 'package:krow1/Providers/Fav.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -20,14 +21,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
-    Provider.of<Jobs>(context, listen: false).fetchAndSetJobs().then((value) {
-      Provider.of<Chats>(context, listen: false)
-          .fetchAndSetChats()
-          .then((value) {
-        Provider.of<User>(context, listen: false).getCurrentUserData();
-      }).then((value) => Provider.of<Fav>(context).fetchUidFavStatus());
-      ;
-    });
+    try {
+      Provider.of<Jobs>(context, listen: false).fetchAndSetJobs().then(
+          (value) => Provider.of<Chats>(context, listen: false)
+              .fetchAndSetChats()
+              .then((value) => Provider.of<Users>(context, listen: false)
+                  .getCurrentUserData())
+              .then(
+                (value) => Provider.of<Fav>(context, listen: false)
+                    .fetchUidFavStatus(),
+              )
+              .then(
+                (value) => Provider.of<Contacts>(context, listen: false)
+                    .fetchAndSetContacts(),
+              ));
+    } catch (err) {
+      print(err);
+    }
 
     super.didChangeDependencies();
   }

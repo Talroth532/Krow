@@ -7,7 +7,7 @@ import '../models/chat.dart';
 
 class Chats with ChangeNotifier {
   List<Chat> _chats;
-  List<Message> messages;
+  List<Message> _messages;
 
   Future<void> fetchAndSetChats() async {
     print('fetching chats...');
@@ -36,7 +36,7 @@ class Chats with ChangeNotifier {
         .collection('messages')
         .getDocuments();
     var messagesDocs = messagesSnapshot.documents;
-    messages = List<Message>.generate(messagesDocs.length, (index) {
+    _messages = List<Message>.generate(messagesDocs.length, (index) {
       return Message(
         text: messagesDocs[index]['text'],
         posterId: messagesDocs[index]['posterId'],
@@ -56,5 +56,10 @@ class Chats with ChangeNotifier {
       messages: [],
       id: docid,
     ));
+    notifyListeners();
+  }
+
+  List<Message> get messages {
+    return [..._messages];
   }
 }

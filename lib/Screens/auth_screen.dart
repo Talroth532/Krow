@@ -80,12 +80,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Function _submitAuthForm = Provider.of<User>(context).submitAuthForm;
+    Function _submitAuthForm = Provider.of<Users>(context).submitAuthForm;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.blue,
       body: AuthForm(
         _submitAuthForm,
-        _isLoading,
       ),
     );
   }

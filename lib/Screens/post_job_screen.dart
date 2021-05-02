@@ -11,7 +11,7 @@ class PostJobScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String posterId = Provider.of<User>(context).uid;
+    String posterId = Provider.of<Users>(context).uid;
     Function postFn = Provider.of<Jobs>(context).uploadJob;
     return Scaffold(
       appBar: AppBar(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Contacts.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/User.dart';
@@ -19,11 +20,22 @@ class ChatTile extends StatefulWidget {
 class _ChatTileState extends State<ChatTile> {
   @override
   Widget build(BuildContext context) {
-    Provider.of<User>(context).uid == widget.chat.uid1
-        ? Provider.of<User>(context).getIdUser(widget.chat.uid2)
-        : Provider.of<User>(context).getIdUser(widget.chat.uid1);
-    Users otherUser = Provider.of<User>(context).userWithId;
-
+    User otherUser;
+    String uid = Provider.of<Users>(context).uid;
+    List<User> contacts = Provider.of<Contacts>(context).contacts;
+    for (int i = 0; i < contacts.length; i++) {
+      if (widget.chat.uid1 == uid) {
+        if (contacts[i].id == widget.chat.uid2) {
+          otherUser = contacts[i];
+          break;
+        }
+      } else if (widget.chat.uid2 == uid) {
+        if (contacts[i].id == widget.chat.uid1) {
+          otherUser = contacts[i];
+          break;
+        }
+      }
+    }
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -31,7 +43,11 @@ class _ChatTileState extends State<ChatTile> {
       ),
       child: Row(
         children: [
-          Image.network(otherUser.imageUrl),
+          Image.network(
+            otherUser.imageUrl,
+            height: 50,
+            width: 50,
+          ),
           Text(
             otherUser.username,
           )

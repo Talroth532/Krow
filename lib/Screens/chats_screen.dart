@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/chat_screen.dart';
 import 'package:krow1/Widgets/chat_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +9,12 @@ import '../Providers/User.dart';
 import '../Widgets/drawer_form.dart';
 
 class ChatsScreen extends StatelessWidget {
-  static String routename = '/ChatsScreen';
+  static String routeName = '/ChatsScreen';
 
   @override
   Widget build(BuildContext context) {
     List<Chat> allChats = Provider.of<Chats>(context).chats;
-    String uid = Provider.of<User>(context).uid;
+    String uid = Provider.of<Users>(context).uid;
 
     List<Chat> chats = allChats
         .where(
@@ -31,8 +32,17 @@ class ChatsScreen extends StatelessWidget {
       body: chats != null
           ? ListView.builder(
               itemBuilder: (ctx, index) {
-                return ChatTile(
-                  chat: chats[index],
+                return FlatButton(
+                  child: ChatTile(
+                    chat: chats[index],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(ChatScreen.routeName, arguments: {
+                      'Chat',
+                      chats[index],
+                    });
+                  },
                 );
               },
               itemCount: chats.length,

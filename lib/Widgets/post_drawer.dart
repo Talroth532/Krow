@@ -116,7 +116,7 @@ class PostDrawer extends StatelessWidget {
             Divider(),
             FlatButton(
               onPressed: () {
-                Provider.of<User>(context, listen: false).signOut();
+                Provider.of<Users>(context, listen: false).signOut();
               },
               child: Container(
                 child: Row(
