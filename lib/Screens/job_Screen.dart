@@ -22,6 +22,9 @@ class _JobScreenState extends State<JobScreen> {
   Widget build(BuildContext context) {
     String curUseUid = Provider.of<Users>(context).uid;
     final routeArgs = ModalRoute.of(context).settings.arguments as Job;
+    final posterUid = routeArgs.posterId;
+    Provider.of<Users>(context).getIdUser(posterUid);
+    User otherUser = Provider.of<Users>(context).idUser;
     return Scaffold(
       appBar: AppBar(
         title: Text(routeArgs.title),
@@ -48,6 +51,9 @@ class _JobScreenState extends State<JobScreen> {
                     Container(
                         child: Text('Payment :\t' + routeArgs.payment),
                         padding: EdgeInsets.all(10)),
+                    Container(
+                        child: Text('Poster :\t' + otherUser.username),
+                        padding: EdgeInsets.all(10)),
                     SizedBox(
                       height: 200,
                     ),
@@ -56,29 +62,32 @@ class _JobScreenState extends State<JobScreen> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 2 - 65,
                         ),
-                        RaisedButton(
-                          onPressed: () {
-                            int index =
+                        Center(
+                          child: RaisedButton(
+                            onPressed: () {
+                              int index =
+                                  Provider.of<Chats>(context, listen: false)
+                                      .chats
+                                      .indexWhere((element) {
+                                return (element.uid1 == routeArgs.posterId ||
+                                        element.uid2 == routeArgs.posterId) &&
+                                    (element.uid1 == curUseUid ||
+                                        element.uid2 == curUseUid);
+                              });
+                              if (index == -1) {
                                 Provider.of<Chats>(context, listen: false)
-                                    .chats
-                                    .indexWhere((element) {
-                              return (element.uid1 == routeArgs.posterId ||
-                                      element.uid1 == routeArgs.posterId) &&
-                                  (element.uid1 == curUseUid ||
-                                      element.uid2 == curUseUid);
-                            });
-                            if (index != -1) {
-                              Provider.of<Chats>(context)
-                                  .createNewChat(curUseUid, routeArgs.posterId);
-                              Navigator.of(context)
-                                  .pushReplacementNamed(ChatsScreen.routeName);
-                            } else {
-                              Navigator.of(context)
-                                  .pushReplacementNamed(ChatsScreen.routeName);
-                            }
-                          },
-                          child: Container(
-                            child: Text('Contact Poster'),
+                                    .createNewChat(
+                                        curUseUid, routeArgs.posterId);
+                                Navigator.of(context).pushReplacementNamed(
+                                    ChatsScreen.routeName);
+                              } else {
+                                Navigator.of(context).pushReplacementNamed(
+                                    ChatsScreen.routeName);
+                              }
+                            },
+                            child: Container(
+                              child: Text('Contact Poster'),
+                            ),
                           ),
                         )
                       ],

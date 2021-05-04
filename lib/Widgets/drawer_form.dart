@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/auth_screen.dart';
-import 'package:krow1/Screens/chats_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/chats_screen.dart';
 import '../Providers/User.dart';
 import '../Screens/Jobs_screen.dart';
 import '../Screens/home_screen.dart';
@@ -58,7 +57,9 @@ class _DrawerFormState extends State<DrawerForm> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, ProfileScreen.routName);
+                Navigator.of(context).pushReplacementNamed(
+                    ProfileScreen.routName,
+                    arguments: {'isFind': true});
               },
               child: Container(
                 child: Row(
@@ -91,7 +92,8 @@ class _DrawerFormState extends State<DrawerForm> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, ChatsScreen.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(ChatsScreen.routeName);
               },
               child: Container(
                 child: Row(

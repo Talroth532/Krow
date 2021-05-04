@@ -17,6 +17,7 @@ class Chats with ChangeNotifier {
 
     List<Chat> chats = List<Chat>.generate(docs.length, (index) {
       return Chat(
+        id: docs[index].documentID,
         uid1: docs[index]['uid1'],
         uid2: docs[index]['uid2'],
       );

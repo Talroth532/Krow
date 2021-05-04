@@ -172,7 +172,11 @@ class _AuthFormState extends State<AuthForm> {
                             ),
                           SizedBox(height: 12),
                           RaisedButton(
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
+                            color: Colors.blue,
+                            child: Text(
+                              _isLogin ? 'Login' : 'Signup',
+                              style: TextStyle(color: Colors.white),
+                            ),
                             onPressed: () {
                               _trySubmit();
                             },

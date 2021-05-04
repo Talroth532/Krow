@@ -19,9 +19,16 @@ class JobTile extends StatefulWidget {
 
 class _JobTileState extends State<JobTile> {
   @override
+  void didChangeDependencies() async {
+    bool isFav = await Provider.of<Fav>(context).checkIfExist(widget.job);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String uid = Provider.of<Users>(context).uid;
     Function changeFav = Provider.of<Fav>(context).updateStatus;
+    bool isFav = Provider.of<Fav>(context).checkIfExist(widget.job);
     return Card(
       child: Column(
         children: [
@@ -36,7 +43,7 @@ class _JobTileState extends State<JobTile> {
               ),
               Text(widget.job.title),
               IconButton(
-                icon: Provider.of<Fav>(context).checkIfExist(widget.job)
+                icon: isFav
                     ? Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -46,8 +53,9 @@ class _JobTileState extends State<JobTile> {
                         color: Colors.yellow,
                       ),
                 onPressed: () {
+                  changeFav(uid, widget.job.id);
                   setState(() {
-                    changeFav(uid, widget.job.id);
+                    isFav = !isFav;
                   });
                 },
               )

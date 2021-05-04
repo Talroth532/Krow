@@ -32,17 +32,19 @@ class ChatsScreen extends StatelessWidget {
       body: chats != null
           ? ListView.builder(
               itemBuilder: (ctx, index) {
-                return FlatButton(
-                  child: ChatTile(
-                    chat: chats[index],
+                return Padding(
+                  padding: EdgeInsets.all(15),
+                  child: FlatButton(
+                    child: ChatTile(
+                      chat: chats[index],
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        ChatScreen.routeName,
+                        arguments: chats[index],
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(ChatScreen.routeName, arguments: {
-                      'Chat',
-                      chats[index],
-                    });
-                  },
                 );
               },
               itemCount: chats.length,

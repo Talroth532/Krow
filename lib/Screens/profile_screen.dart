@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Widgets/post_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/User.dart';
@@ -11,14 +12,23 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User curUse = Provider.of<Users>(context).curUse;
+    var _args = ModalRoute.of(context).settings.arguments as Map<String, bool>;
+    bool isFind = _args['isFind'];
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
       ),
-      endDrawer: Drawer(
-        child: DrawerForm(),
-      ),
+      drawer: isFind
+          ? null
+          : Drawer(
+              child: PostDrawer(),
+            ),
+      endDrawer: isFind
+          ? Drawer(
+              child: DrawerForm(),
+            )
+          : null,
       body: Column(
         children: [
           Row(
@@ -35,7 +45,14 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           Text('Email:\t' + curUse.email),
-          Text('Phone:\t' + curUse.phone)
+          Text('Phone:\t' + curUse.phone),
+          RaisedButton(
+            onPressed: null,
+            child: Container(
+              child: Text('Edit Profile'),
+            ),
+            color: Colors.red,
+          ),
         ],
       ),
     );
