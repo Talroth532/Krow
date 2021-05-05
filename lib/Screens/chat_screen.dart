@@ -18,6 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final uid = Provider.of<Users>(context).uid;
     final routeArgs = ModalRoute.of(context).settings.arguments as Chat;
+    Function _sendMessage = Provider.of<Chats>(context).sendMessage;
     var chatId = routeArgs.id;
     String otherUserId =
         routeArgs.uid1 == uid ? routeArgs.uid2 : routeArgs.uid1;
@@ -37,7 +38,9 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     }
     Provider.of<Chats>(context).fetchMessages(chatId);
+    String _enterdMessage;
     final messages = Provider.of<Chats>(context).messages;
+    Key textFieldKey;
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -51,33 +54,69 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-      body: messages == null
+      body: messages == []
           ? Text('This is the begining of your chat')
-          : ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (ctx, index) {
-                return messages[index].posterId == uid
-                    ? Container(
-                        child: Text(messages[index].text),
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
-                            )),
-                      )
-                    : Container(
-                        child: Text(messages[index].text),
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomRight: Radius.circular(15),
-                            )),
-                      );
-              },
+          : Container(
+              child: Column(
+                children: [
+                  ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (ctx, index) {
+                      return messages[index].posterId == uid
+                          ? Container(
+                              child: Text(messages[index].text),
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15),
+                                  )),
+                            )
+                          : Container(
+                              child: Text(messages[index].text),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  )),
+                            );
+                    },
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Form(
+                          key: textFieldKey,
+                          child: TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            autocorrect: true,
+                            enableSuggestions: true,
+                            decoration: InputDecoration(
+                                labelText: 'Write a message...'),
+                            onChanged: (value) {
+                              setState(() {
+                                _enterdMessage = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          icon: Icon(Icons.send),
+                          onPressed: _enterdMessage == null
+                              ? null
+                              : () async {
+                                  await _sendMessage(
+                                      chatId, uid, _enterdMessage);
+                                }),
+                    ],
+                  )
+                ],
+              ),
+              height: 500,
             ),
     );
   }
