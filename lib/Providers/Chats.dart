@@ -43,6 +43,7 @@ class Chats with ChangeNotifier {
       return Message(
         text: messagesDocs[index]['text'],
         posterId: messagesDocs[index]['posterId'],
+        date: messagesDocs[index]['date'],
       );
     });
     notifyListeners();
@@ -71,7 +72,15 @@ class Chats with ChangeNotifier {
         .collection('chats')
         .document(cid)
         .collection('messages')
-        .add({'posterId': uid, 'text': enterdMessage});
-    messages.add(Message(posterId: uid, text: enterdMessage));
+        .add({
+      'posterId': uid,
+      'text': enterdMessage,
+      'date': DateTime.now(),
+    });
+    messages.add(Message(
+      posterId: uid,
+      text: enterdMessage,
+      date: DateTime.now(),
+    ));
   }
 }

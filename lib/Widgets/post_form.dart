@@ -21,6 +21,7 @@ class PostForm extends StatefulWidget {
 }
 
 class _PostFormState extends State<PostForm> {
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   var _title = '';
   var _description = '';
@@ -48,6 +49,9 @@ class _PostFormState extends State<PostForm> {
 
     if (isValid) {
       _formKey.currentState.save();
+      setState(() {
+        isLoading = true;
+      });
       await widget.sendFunction(
         _title.trim(),
         _description.trim(),
@@ -56,6 +60,15 @@ class _PostFormState extends State<PostForm> {
         widget.posterId,
         _userImageFile,
       );
+      setState(() {
+        isLoading = false;
+      });
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Job Posted'),
+          backgroundColor: Colors.blue,
+        ),
+      );
       return true;
     }
     return false;
@@ -63,82 +76,88 @@ class _PostFormState extends State<PostForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            UserImagePicker(_pickedImage),
-            Padding(
-              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
-              child: TextFormField(
-                key: ValueKey('title'),
-                validator: (value) {
-                  if (value.isEmpty || value.length < 4 && value.length > 8) {
-                    return 'Please enter a valid title.';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                ),
-                onSaved: (value) {
-                  _title = value;
-                },
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(
+            backgroundColor: Colors.blue,
+          ))
+        : SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  UserImagePicker(_pickedImage),
+                  Padding(
+                    padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+                    child: TextFormField(
+                      key: ValueKey('title'),
+                      validator: (value) {
+                        if (value.isEmpty ||
+                            value.length < 4 && value.length > 8) {
+                          return 'Please enter a valid title.';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: 'Title',
+                      ),
+                      onSaved: (value) {
+                        _title = value;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+                    child: TextFormField(
+                      key: ValueKey('description'),
+                      validator: (value) {
+                        if (value.isEmpty || value.length < 10) {
+                          return 'Please enter a valid description.';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        labelText: 'Description',
+                      ),
+                      onSaved: (value) {
+                        _description = value;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
+                    child: TextFormField(
+                      key: ValueKey('payment'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a valid email address.';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Payment',
+                      ),
+                      onSaved: (value) {
+                        _payment = value;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                      child: Text('Post'),
+                      onPressed: () async {
+                        await _trySubmit();
+                      },
+                      color: Colors.lightBlue,
+                    ),
+                  )
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
-              child: TextFormField(
-                key: ValueKey('description'),
-                validator: (value) {
-                  if (value.isEmpty || value.length < 10) {
-                    return 'Please enter a valid description.';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                ),
-                onSaved: (value) {
-                  _description = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
-              child: TextFormField(
-                key: ValueKey('payment'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter a valid email address.';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Payment',
-                ),
-                onSaved: (value) {
-                  _payment = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: RaisedButton(
-                child: Text('Post'),
-                onPressed: () {
-                  _trySubmit();
-                },
-                color: Colors.lightBlue,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:krow1/Providers/Contacts.dart';
-import 'package:krow1/models/chat.dart';
-import 'package:krow1/models/user.dart';
+import 'package:krow1/Screens/fav_job_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -73,6 +72,7 @@ class MyApp extends StatelessWidget {
           ChatsScreen.routeName: (ctx) => ChatsScreen(),
           MyJobScreen.routeName: (ctx) => MyJobScreen(),
           ChatScreen.routeName: (ctx) => ChatScreen(),
+          FavJobScreen.routeName: (ctx) => FavJobScreen(),
         },
       ),
     );

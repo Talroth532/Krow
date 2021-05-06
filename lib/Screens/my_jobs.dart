@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Providers/Fav.dart';
 import 'package:krow1/Providers/Jobs.dart';
 import 'package:krow1/Providers/User.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,26 @@ class _MyJobScreenState extends State<MyJobScreen> {
       drawer: PostDrawer(),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return MyJobTile(job: myJobs[index]);
+          return Dismissible(
+            key: Key(
+              index.toString(),
+            ),
+            child: MyJobTile(job: myJobs[index]),
+            onDismissed: (DismissDirection dir) async {
+              await Provider.of<Jobs>(context, listen: false)
+                  .removeJob(myJobs[index].id);
+              await Provider.of<Fav>(context, listen: false)
+                  .removeJob(myJobs[index].id);
+              setState(() {
+                myJobs.removeAt(index);
+              });
+            },
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: const Icon(Icons.delete),
+            ),
+          );
         },
         itemCount: myJobs.length,
       ),

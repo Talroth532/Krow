@@ -14,6 +14,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  TextEditingController _controller;
+  String _enterdMessage = '';
+  Key textFieldKey;
+
   @override
   Widget build(BuildContext context) {
     final uid = Provider.of<Users>(context).uid;
@@ -38,9 +42,8 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     }
     Provider.of<Chats>(context).fetchMessages(chatId);
-    String _enterdMessage;
     final messages = Provider.of<Chats>(context).messages;
-    Key textFieldKey;
+    messages.sort((a, b) => a.date.compareTo(b.date));
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -54,36 +57,44 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-      body: messages == []
+      body: messages == null
           ? Text('This is the begining of your chat')
           : Container(
               child: Column(
                 children: [
-                  ListView.builder(
-                    itemCount: messages.length,
-                    itemBuilder: (ctx, index) {
-                      return messages[index].posterId == uid
-                          ? Container(
-                              child: Text(messages[index].text),
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15),
-                                  )),
-                            )
-                          : Container(
-                              child: Text(messages[index].text),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15),
-                                  )),
-                            );
-                    },
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (ctx, index) {
+                        return messages[index].posterId == uid
+                            ? Container(
+                                alignment: Alignment.centerRight,
+                                padding: EdgeInsets.all(15),
+                                margin: EdgeInsets.all(15),
+                                child: Text(messages[index].text),
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15),
+                                    )),
+                              )
+                            : Container(
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.all(15),
+                                margin: EdgeInsets.all(15),
+                                child: Text(messages[index].text),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15),
+                                    )),
+                              );
+                      },
+                    ),
                   ),
                   Row(
                     children: [
@@ -91,8 +102,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         child: Form(
                           key: textFieldKey,
                           child: TextFormField(
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                             autocorrect: true,
+                            controller: _controller,
                             enableSuggestions: true,
                             decoration: InputDecoration(
                                 labelText: 'Write a message...'),
@@ -106,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                       IconButton(
                           icon: Icon(Icons.send),
-                          onPressed: _enterdMessage == null
+                          onPressed: _enterdMessage.trim().isEmpty
                               ? null
                               : () async {
                                   await _sendMessage(
@@ -116,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   )
                 ],
               ),
-              height: 500,
+              height: 200,
             ),
     );
   }

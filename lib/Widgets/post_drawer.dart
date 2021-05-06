@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/auth_screen.dart';
 import 'package:krow1/Screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -153,6 +154,7 @@ class PostDrawer extends StatelessWidget {
             FlatButton(
               onPressed: () {
                 Provider.of<Users>(context, listen: false).signOut();
+                Navigator.of(context).pushReplacementNamed(AuthScreen.routName);
               },
               child: Container(
                 child: Row(

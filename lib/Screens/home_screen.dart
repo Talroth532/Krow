@@ -23,18 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     try {
       Provider.of<Jobs>(context, listen: false).fetchAndSetJobs().then(
-          (value) => Provider.of<Chats>(context, listen: false)
-              .fetchAndSetChats()
-              .then((value) => Provider.of<Users>(context, listen: false)
-                  .getCurrentUserData())
-              .then(
-                (value) => Provider.of<Fav>(context, listen: false)
-                    .fetchUidFavStatus(),
-              )
-              .then(
-                (value) => Provider.of<Contacts>(context, listen: false)
-                    .fetchAndSetContacts(),
-              ));
+            (value) => Provider.of<Chats>(context, listen: false)
+                .fetchAndSetChats()
+                .then((value) => Provider.of<Users>(context, listen: false)
+                    .getCurrentUserData())
+                .then(
+                  (value) => Provider.of<Fav>(context, listen: false)
+                      .fetchUidFavStatus(),
+                )
+                .then(
+                  (value) => Provider.of<Contacts>(context, listen: false)
+                      .fetchAndSetContacts(),
+                )
+                .then(
+                  (value) => Provider.of<Users>(context, listen: false)
+                      .getAllUserData(),
+                ),
+          );
     } catch (err) {
       print(err);
     }

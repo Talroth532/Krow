@@ -15,6 +15,7 @@ class Users with ChangeNotifier {
   String imageUrl;
   String uid;
   User idUser;
+  List<User> allUsers = [];
 
   Future<String> submitAuthForm(
     String email,
@@ -58,6 +59,23 @@ class Users with ChangeNotifier {
     return '';
   }
 
+  Future<void> getAllUserData() async {
+    print('getting all user data');
+    var docSnapshot =
+        await Firestore.instance.collection('users').getDocuments();
+    var docs = docSnapshot.documents;
+    for (int i = 0; i < docs.length; i++) {
+      allUsers.add(
+        User(
+            id: docs[i].documentID,
+            email: docs[i]['email'],
+            username: docs[i]['username'],
+            phone: docs[i]['phone'],
+            imageUrl: docs[i]['url']),
+      );
+    }
+  }
+
   Future<void> getCurrentUserData() async {
     print('getting user data');
     final curUser = await FirebaseAuth.instance.currentUser();
@@ -82,15 +100,13 @@ class Users with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getIdUser(String id) async {
-    var usrsp = await Firestore.instance.collection('users').document(id).get();
-    this.idUser = User(
-      id: id,
-      email: usrsp.data['email'],
-      username: usrsp.data['username'],
-      imageUrl: usrsp.data['Url'],
-      phone: usrsp.data['phone'],
-    );
+  void getIdUser(String id) {
+    for (int i = 0; i < this.allUsers.length; i++) {
+      if (allUsers[i].id == id) {
+        idUser = allUsers[i];
+        break;
+      }
+    }
   }
 
   User get userWithId {

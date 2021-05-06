@@ -68,6 +68,7 @@ class _AuthFormState extends State<AuthForm> {
         setState(() {
           isLoading = false;
         });
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routName);
       } on PlatformException catch (err) {
         var message = 'An error occured, plese check your credentials';
 
@@ -85,6 +86,9 @@ class _AuthFormState extends State<AuthForm> {
           backgroundColor: Colors.red,
         ));
       }
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -95,7 +99,10 @@ class _AuthFormState extends State<AuthForm> {
         title: Text('Krow'),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              backgroundColor: Colors.blue,
+            ))
           : Center(
               child: Card(
                 margin: EdgeInsets.all(20),

@@ -6,7 +6,7 @@ import '../models/job.dart';
 
 class Fav with ChangeNotifier {
   String uid;
-  List<UserJob> userJobs = [];
+  List<UserJob> _userJobs = [];
 
   Fav(this.uid);
 
@@ -17,7 +17,7 @@ class Fav with ChangeNotifier {
         .getDocuments();
     var docs = favSnapshot.documents;
     for (int i = 0; i < docs.length; i++) {
-      userJobs.add(
+      _userJobs.add(
         UserJob(
           id: docs[i].documentID,
           uid: uid,
@@ -31,15 +31,19 @@ class Fav with ChangeNotifier {
     String uid,
     String jobId,
   ) async {
-    var document = await Firestore.instance.collection('user-job').add({
-      'uid': uid,
-      'job id': jobId,
-    });
-    userJobs.add(UserJob(
-      id: document.documentID,
-      uid: uid,
-      jobId: jobId,
-    ));
+    var document = await Firestore.instance.collection('user-job').add(
+      {
+        'uid': uid,
+        'job id': jobId,
+      },
+    );
+    _userJobs.add(
+      UserJob(
+        id: document.documentID,
+        uid: uid,
+        jobId: jobId,
+      ),
+    );
   }
 
   Future<void> updateStatus(
@@ -47,7 +51,7 @@ class Fav with ChangeNotifier {
     String jobId,
   ) async {
     int i;
-    bool exists;
+    bool exists = false;
     var favSnapshot =
         await Firestore.instance.collection('user-job').getDocuments();
     var docs = favSnapshot.documents;
@@ -55,30 +59,53 @@ class Fav with ChangeNotifier {
       if (docs[i]['uid'] == uid && docs[i]['job id'] == jobId) {
         exists = true;
         break;
-      } else {
-        exists = false;
       }
     }
     if (exists) {
-      int index = userJobs.indexWhere((element) {
-        return (element.uid == uid && element.jobId == jobId);
-      });
-      await Firestore.instance
-          .collection('user-job')
-          .document(docs[i].documentID)
-          .delete();
+      int index = _userJobs.indexWhere(
+        (element) {
+          return (element.uid == uid && element.jobId == jobId);
+        },
+      );
+      if (index == -1) {
+        createNewFav(uid, jobId);
+      } else {
+        await Firestore.instance
+            .collection('user-job')
+            .document(docs[i].documentID)
+            .delete();
+        _userJobs.removeAt(index);
+      }
     } else {
-      createNewFav(uid, jobId);
+      await createNewFav(uid, jobId);
     }
   }
 
   bool checkIfExist(Job job) {
-    if (this.userJobs.firstWhere((element) {
+    if (this._userJobs.firstWhere((element) {
           return element.jobId == job.id;
         }, orElse: () => null) !=
         null) {
       return true;
     } else
       return false;
+  }
+
+  Future<void> removeJob(String jobId) async {
+    var documents =
+        await Firestore.instance.collection('user-job').getDocuments();
+    var docs = documents.documents;
+    for (int i = 0; i < docs.length; i++) {
+      if (docs[i]['job id'] == jobId) {
+        await Firestore.instance
+            .collection('user-job')
+            .document(docs[i].documentID)
+            .delete();
+      }
+    }
+  }
+
+  List<UserJob> get userJobs {
+    return [..._userJobs];
   }
 }

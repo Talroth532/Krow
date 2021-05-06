@@ -21,25 +21,26 @@ class _JobsScreenState extends State<JobsScreen> {
     List<Job> jobs = Provider.of<Jobs>(context).jobs;
     List<UserJob> userJobs = Provider.of<Fav>(context).userJobs;
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Find A Job'),
-        ),
-        endDrawer: Drawer(
-          child: DrawerForm(),
-        ),
-        body: ListView.builder(
-          itemBuilder: (ctx, index) {
-            return FlatButton(
-              child: JobTile(
-                job: jobs[index],
-              ),
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(JobScreen.routeName, arguments: jobs[index]);
-              },
-            );
-          },
-          itemCount: jobs.length,
-        ));
+      appBar: AppBar(
+        title: Text('Find A Job'),
+      ),
+      endDrawer: Drawer(
+        child: DrawerForm(),
+      ),
+      body: ListView.builder(
+        itemBuilder: (ctx, index) {
+          return FlatButton(
+            child: JobTile(
+              job: jobs[index],
+            ),
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(JobScreen.routeName, arguments: jobs[index]);
+            },
+          );
+        },
+        itemCount: jobs.length,
+      ),
+    );
   }
 }

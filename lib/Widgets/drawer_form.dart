@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:krow1/Screens/auth_screen.dart';
+import 'package:krow1/Screens/fav_job_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../Screens/chats_screen.dart';
@@ -24,7 +26,8 @@ class _DrawerFormState extends State<DrawerForm> {
           children: [
             FlatButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, JobsScreen.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(JobsScreen.routeName);
               },
               child: Container(
                 child: Row(
@@ -39,6 +42,40 @@ class _DrawerFormState extends State<DrawerForm> {
                     ),
                     Text(
                       'Jobs',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(FavJobScreen.routeName);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Favorite Jobs',
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -161,6 +198,7 @@ class _DrawerFormState extends State<DrawerForm> {
             FlatButton(
               onPressed: () {
                 Provider.of<Users>(context, listen: false).signOut();
+                Navigator.of(context).pushReplacementNamed(AuthScreen.routName);
               },
               child: Container(
                 child: Row(

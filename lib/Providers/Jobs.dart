@@ -65,4 +65,8 @@ class Jobs with ChangeNotifier {
         payment: payment,
         posterId: posterId));
   }
+
+  Future<void> removeJob(String jobId) async {
+    await Firestore.instance.collection('jobs').document(jobId).delete();
+  }
 }
