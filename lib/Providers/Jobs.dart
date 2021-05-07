@@ -10,7 +10,7 @@ class Jobs with ChangeNotifier {
   List<Job> _jobs = [];
 
   Future<void> fetchAndSetJobs() async {
-    print('fetching items... by avnon');
+    print('fetching jobs... ');
     var jobSnapshot =
         await Firestore.instance.collection('jobs').getDocuments();
     var docs = jobSnapshot.documents;

@@ -22,11 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     try {
-      Provider.of<Jobs>(context, listen: false).fetchAndSetJobs().then(
-            (value) => Provider.of<Chats>(context, listen: false)
-                .fetchAndSetChats()
-                .then((value) => Provider.of<Users>(context, listen: false)
-                    .getCurrentUserData())
+      Provider.of<Users>(context, listen: false).getCurrentUserData().then(
+            (value) => Provider.of<Jobs>(context, listen: false)
+                .fetchAndSetJobs()
+                .then((value) => Provider.of<Chats>(context, listen: false)
+                    .fetchAndSetChats())
                 .then(
                   (value) => Provider.of<Fav>(context, listen: false)
                       .fetchUidFavStatus(),

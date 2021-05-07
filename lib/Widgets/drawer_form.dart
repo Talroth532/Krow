@@ -196,8 +196,8 @@ class _DrawerFormState extends State<DrawerForm> {
             ),
             Divider(),
             FlatButton(
-              onPressed: () {
-                Provider.of<Users>(context, listen: false).signOut();
+              onPressed: () async {
+                await Provider.of<Users>(context, listen: false).signOut();
                 Navigator.of(context).pushReplacementNamed(AuthScreen.routName);
               },
               child: Container(

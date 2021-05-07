@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Message {
   String text;
   String posterId;
-  DateTime date;
+  Timestamp date;
 
   Message({
     this.posterId,

@@ -17,10 +17,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   bool _isEdit = false;
   File _userImageFile;
-  String _newMail = '';
   String _newUname = '';
   String _newPhone = '';
 
@@ -28,202 +28,194 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _userImageFile = image;
   }
 
-  // Future<bool> _trySubmit() async {
-  //   final isValid = _formKey.currentState.validate();
-  //   FocusScope.of(context).unfocus();
+  Future<bool> _trySubmit(
+    Future<void> sendData(
+      String username,
+      String phone,
+      File image,
+    ),
+  ) async {
+    final isValid = _formKey.currentState.validate();
+    FocusScope.of(context).unfocus();
 
-  //   if (_userImageFile == null) {
-  //     Scaffold.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Please pick a valid image'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //     return true;
-  //   }
+    if (_userImageFile == null) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please pick a valid image'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return true;
+    }
 
-  //   if (isValid) {
-  //     _formKey.currentState.save();
-  //     // setState(() {
-  //     //   isLoading = true;
-  //     // });
-  //     await widget.sendFunction(
-  //       _title.trim(),
-  //       _description.trim(),
-  //       _imageUrl.trim(),
-  //       _payment.trim(),
-  //       widget.posterId,
-  //       _userImageFile,
-  //     );
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //     Scaffold.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Job Posted'),
-  //         backgroundColor: Colors.blue,
-  //       ),
-  //     );
-  //     return true;
-  //   }
-  //   return false;
-  // }
+    if (isValid) {
+      _formKey.currentState.save();
+      setState(() {
+        isLoading = true;
+      });
+      await sendData(
+        _newUname,
+        _newPhone,
+        _userImageFile,
+      );
+      setState(() {
+        isLoading = false;
+      });
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
     User curUse = Provider.of<Users>(context).curUse;
     var _args = ModalRoute.of(context).settings.arguments as Map<String, bool>;
     bool isFind = _args['isFind'];
+    Future<void> Function(
+      String userName,
+      String phone,
+      File image,
+    ) sendFn = Provider.of<Users>(context).updateUserData;
 
-    return _isEdit
-        ? Scaffold(
-            appBar: AppBar(
-              title: Text('Profile'),
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.blue,
             ),
-            drawer: isFind
-                ? null
-                : Drawer(
-                    child: PostDrawer(),
-                  ),
-            endDrawer: isFind
-                ? Drawer(
-                    child: DrawerForm(),
-                  )
-                : null,
-            body: Container(
-              height: 200,
-              width: 200,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Row(
+          )
+        : _isEdit
+            ? Scaffold(
+                appBar: AppBar(
+                  title: Text('Profile'),
+                ),
+                drawer: isFind
+                    ? null
+                    : Drawer(
+                        child: PostDrawer(),
+                      ),
+                endDrawer: isFind
+                    ? Drawer(
+                        child: DrawerForm(),
+                      )
+                    : null,
+                body: Container(
+                  height: 200,
+                  width: 200,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
-                        ClipRRect(
-                          child: Container(
-                            child: UserImagePicker(_pickedImage),
-                            height: 100,
-                            width: 100,
-                          ),
-                          borderRadius: BorderRadius.circular(100),
+                        Row(
+                          children: [
+                            ClipRRect(
+                              child: Container(
+                                child: UserImagePicker(_pickedImage),
+                                height: 100,
+                                width: 100,
+                              ),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ],
                         ),
                         Expanded(
                           child: TextFormField(
-                            key: ValueKey('email'),
+                            key: ValueKey('username'),
                             validator: (value) {
-                              if (value.isEmpty || !value.contains('@')) {
-                                return 'Please enter a valid email address.';
+                              if (value.isEmpty) {
+                                return 'Please enter a valid UserName.';
                               }
                               return null;
                             },
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              labelText: 'Email address',
+                              labelText: 'Username',
                             ),
                             onChanged: (value) {
-                              _newMail = value;
+                              _newUname = value;
                             },
                           ),
                         ),
+                        Expanded(
+                          child: TextFormField(
+                            key: ValueKey('phone'),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter a valid Phone Number.';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Phone',
+                            ),
+                            onChanged: (value) {
+                              _newPhone = value;
+                            },
+                          ),
+                        ),
+                        RaisedButton(
+                          onPressed: () async {
+                            bool didChange = await _trySubmit(sendFn);
+                            if (didChange) {
+                              setState(() {
+                                _isEdit = !(_isEdit);
+                              });
+                            }
+                          },
+                          child: Container(
+                            child: Text('Save Changes'),
+                          ),
+                          color: Colors.blue,
+                        ),
                       ],
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        key: ValueKey('username'),
-                        validator: (value) {
-                          if (value.isEmpty || !value.contains('@')) {
-                            return 'Please enter a valid email address.';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                        ),
-                        onChanged: (value) {
-                          _newUname = value;
-                        },
+                  ),
+                ),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  title: Text('Profile'),
+                ),
+                drawer: isFind
+                    ? null
+                    : Drawer(
+                        child: PostDrawer(),
                       ),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        key: ValueKey('phone'),
-                        validator: (value) {
-                          if (value.isEmpty || !value.contains('@')) {
-                            return 'Please enter a valid email address.';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Phone',
+                endDrawer: isFind
+                    ? Drawer(
+                        child: DrawerForm(),
+                      )
+                    : null,
+                body: Column(
+                  children: [
+                    Row(
+                      children: [
+                        ClipRRect(
+                          child: Container(
+                            child: Image.network(curUse.imageUrl),
+                            height: 100,
+                            width: 100,
+                          ),
+                          borderRadius: BorderRadius.circular(100),
                         ),
-                        onChanged: (value) {
-                          _newPhone = value;
-                        },
-                      ),
+                        Text('Username:\t' + curUse.username),
+                      ],
                     ),
+                    Text('Email:\t' + curUse.email),
+                    Text('Phone:\t' + curUse.phone),
                     RaisedButton(
                       onPressed: () {
-                        // trySubmit();
                         setState(() {
                           _isEdit = !(_isEdit);
                         });
                       },
                       child: Container(
-                        child: Text('Save Changes'),
+                        child: Text('Edit Profile'),
                       ),
                       color: Colors.blue,
                     ),
                   ],
                 ),
-              ),
-            ),
-          )
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Profile'),
-            ),
-            drawer: isFind
-                ? null
-                : Drawer(
-                    child: PostDrawer(),
-                  ),
-            endDrawer: isFind
-                ? Drawer(
-                    child: DrawerForm(),
-                  )
-                : null,
-            body: Column(
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      child: Container(
-                        child: Image.network(curUse.imageUrl),
-                        height: 100,
-                        width: 100,
-                      ),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    Text('Username:\t' + curUse.username),
-                  ],
-                ),
-                Text('Email:\t' + curUse.email),
-                Text('Phone:\t' + curUse.phone),
-                RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isEdit = !(_isEdit);
-                    });
-                  },
-                  child: Container(
-                    child: Text('Edit Profile'),
-                  ),
-                  color: Colors.blue,
-                ),
-              ],
-            ),
-          );
+              );
   }
 }

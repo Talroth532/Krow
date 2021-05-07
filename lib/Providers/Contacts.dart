@@ -57,4 +57,13 @@ class Contacts with ChangeNotifier {
   List<User> get contacts {
     return [..._contacts];
   }
+
+  User getContact(String uid) {
+    for (int i = 0; i < _contacts.length; i++) {
+      if (_contacts[i].id == uid) {
+        return _contacts[i];
+      }
+    }
+    return null;
+  }
 }

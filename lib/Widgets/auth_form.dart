@@ -98,6 +98,7 @@ class _AuthFormState extends State<AuthForm> {
       appBar: AppBar(
         title: Text('Krow'),
       ),
+      backgroundColor: Colors.blue,
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(

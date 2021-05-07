@@ -75,12 +75,12 @@ class Chats with ChangeNotifier {
         .add({
       'posterId': uid,
       'text': enterdMessage,
-      'date': DateTime.now(),
+      'date': Timestamp.now(),
     });
     messages.add(Message(
       posterId: uid,
       text: enterdMessage,
-      date: DateTime.now(),
+      date: Timestamp.now(),
     ));
   }
 }

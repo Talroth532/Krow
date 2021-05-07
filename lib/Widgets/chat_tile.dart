@@ -22,20 +22,10 @@ class _ChatTileState extends State<ChatTile> {
   Widget build(BuildContext context) {
     User otherUser;
     String uid = Provider.of<Users>(context).uid;
-    List<User> contacts = Provider.of<Contacts>(context).contacts;
-    for (int i = 0; i < contacts.length; i++) {
-      if (widget.chat.uid1 == uid) {
-        if (contacts[i].id == widget.chat.uid2) {
-          otherUser = contacts[i];
-          break;
-        }
-      } else if (widget.chat.uid2 == uid) {
-        if (contacts[i].id == widget.chat.uid1) {
-          otherUser = contacts[i];
-          break;
-        }
-      }
-    }
+    otherUser = widget.chat.uid1 == uid
+        ? Provider.of<Contacts>(context).getContact(widget.chat.uid2)
+        : Provider.of<Contacts>(context).getContact(widget.chat.uid1);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),

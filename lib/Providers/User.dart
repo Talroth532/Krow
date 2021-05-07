@@ -44,8 +44,6 @@ class Users with ChangeNotifier {
 
       imageUrl = await ref.getDownloadURL();
 
-      uid = authresult.user.uid;
-
       await Firestore.instance
           .collection('users')
           .document(authresult.user.uid)
@@ -56,6 +54,7 @@ class Users with ChangeNotifier {
         'url': imageUrl,
       });
     }
+    uid = authresult.user.uid;
     return '';
   }
 
@@ -97,7 +96,6 @@ class Users with ChangeNotifier {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-    notifyListeners();
   }
 
   void getIdUser(String id) {
@@ -115,5 +113,31 @@ class Users with ChangeNotifier {
 
   void refreshUserData(String uid) {
     this.uid = uid;
+  }
+
+  Future<void> updateUserData(
+    String username,
+    String phone,
+    File image,
+  ) async {
+    final ref = FirebaseStorage.instance.ref().child('user_image').child(
+          uid + '.jpg',
+        );
+    await ref.delete();
+    await ref.putFile(image).onComplete;
+    final url = await ref.getDownloadURL();
+
+    Firestore.instance.collection('users').document(uid).setData({
+      'email': curUse.email,
+      'username': username,
+      'phone': phone,
+      'url': url
+    });
+    curUse = User(
+        id: uid,
+        email: curUse.email,
+        imageUrl: url,
+        phone: phone,
+        username: username);
   }
 }
