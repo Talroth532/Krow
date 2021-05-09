@@ -64,7 +64,7 @@ class _JobScreenState extends State<JobScreen> {
                         ),
                         Center(
                           child: RaisedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               int index =
                                   Provider.of<Chats>(context, listen: false)
                                       .chats
@@ -75,14 +75,16 @@ class _JobScreenState extends State<JobScreen> {
                                         element.uid2 == curUseUid);
                               });
                               if (index == -1) {
-                                Provider.of<Chats>(context, listen: false)
+                                await Provider.of<Chats>(context, listen: false)
                                     .createNewChat(
                                         curUseUid, routeArgs.posterId);
                                 Navigator.of(context).pushReplacementNamed(
-                                    ChatsScreen.routeName);
+                                    ChatsScreen.routeName,
+                                    arguments: true);
                               } else {
                                 Navigator.of(context).pushReplacementNamed(
-                                    ChatsScreen.routeName);
+                                    ChatsScreen.routeName,
+                                    arguments: true);
                               }
                             },
                             child: Container(

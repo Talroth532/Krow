@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -50,17 +48,18 @@ class Chats with ChangeNotifier {
     notifyListeners();
   }
 
-  void createNewChat(String uid1, String uid2) async {
+  Future<void> createNewChat(String uid1, String uid2) async {
     var doc = await Firestore.instance
         .collection('chats')
         .add({'uid1': uid1, 'uid2': uid2});
     var docid = doc.documentID;
-    chats.add(Chat(
-      uid1: uid1,
-      uid2: uid2,
-      messages: [],
-      id: docid,
-    ));
+    _chats.add(
+      Chat(
+        uid1: uid1,
+        uid2: uid2,
+        id: docid,
+      ),
+    );
     notifyListeners();
   }
 
@@ -89,6 +88,7 @@ class Chats with ChangeNotifier {
   Future<void> removeChat(String cid) async {
     await Firestore.instance.collection('chats').document(cid).delete();
     _chats.removeWhere((element) => element.id == cid);
+    notifyListeners();
   }
 
   Future<void> removeMessage(String cid, String mid) async {
@@ -99,5 +99,6 @@ class Chats with ChangeNotifier {
         .document(mid)
         .delete();
     messages.removeWhere((element) => element.id == mid);
+    notifyListeners();
   }
 }

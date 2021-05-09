@@ -29,60 +29,78 @@ class _ChatsScreenState extends State<ChatsScreen> {
         )
         .toList();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chats'),
-      ),
-      drawer: _isFind
-          ? null
-          : Drawer(
-              child: PostDrawer(),
+    return chats.isEmpty
+        ? Scaffold(
+            appBar: AppBar(
+              title: Text('Chats'),
             ),
-      endDrawer: _isFind
-          ? Drawer(
-              child: DrawerForm(),
-            )
-          : null,
-      body: chats != null
-          ? ListView.builder(
-              itemBuilder: (ctx, index) {
-                return Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Dismissible(
-                    key: Key(
-                      index.toString(),
-                    ),
-                    child: FlatButton(
-                      child: ChatTile(
-                        chat: chats[index],
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          ChatScreen.routeName,
-                          arguments: chats[index],
-                        );
-                      },
-                    ),
-                    onDismissed: (DismissDirection dir) async {
-                      await Provider.of<Chats>(context, listen: false)
-                          .removeChat(chats[index].id);
-                      setState(() {
-                        chats.removeAt(index);
-                      });
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      child: Icon(
-                        Icons.delete,
-                      ),
-                      alignment: Alignment.centerRight,
-                    ),
+            drawer: _isFind
+                ? null
+                : Drawer(
+                    child: PostDrawer(),
                   ),
-                );
-              },
-              itemCount: chats.length,
-            )
-          : Text('you have no chats'),
-    );
+            endDrawer: _isFind
+                ? Drawer(
+                    child: DrawerForm(),
+                  )
+                : null,
+            body: Text('You have no chats'),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              title: Text('Chats'),
+            ),
+            drawer: _isFind
+                ? null
+                : Drawer(
+                    child: PostDrawer(),
+                  ),
+            endDrawer: _isFind
+                ? Drawer(
+                    child: DrawerForm(),
+                  )
+                : null,
+            body: chats != null
+                ? ListView.builder(
+                    itemBuilder: (ctx, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Dismissible(
+                          key: Key(
+                            index.toString(),
+                          ),
+                          child: FlatButton(
+                            child: ChatTile(
+                              chat: chats[index],
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                ChatScreen.routeName,
+                                arguments: chats[index],
+                              );
+                            },
+                          ),
+                          onDismissed: (DismissDirection dir) async {
+                            await Provider.of<Chats>(context, listen: false)
+                                .removeChat(chats[index].id);
+                            setState(() {
+                              chats.removeAt(index);
+                            });
+                          },
+                          background: Container(
+                            color: Colors.red,
+                            child: Icon(
+                              Icons.delete,
+                            ),
+                            width: double.infinity,
+                            alignment: Alignment.centerRight,
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: chats.length,
+                  )
+                : Text('you have no chats'),
+          );
   }
 }

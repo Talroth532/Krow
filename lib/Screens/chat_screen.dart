@@ -24,23 +24,9 @@ class _ChatScreenState extends State<ChatScreen> {
     final routeArgs = ModalRoute.of(context).settings.arguments as Chat;
     Function _sendMessage = Provider.of<Chats>(context).sendMessage;
     var chatId = routeArgs.id;
-    String otherUserId =
-        routeArgs.uid1 == uid ? routeArgs.uid2 : routeArgs.uid1;
-    User otherUser;
-    List<User> contacts = Provider.of<Contacts>(context).contacts;
-    for (int i = 0; i < contacts.length; i++) {
-      if (routeArgs.uid1 == uid) {
-        if (contacts[i].id == routeArgs.uid2) {
-          otherUser = contacts[i];
-          break;
-        }
-      } else if (routeArgs.uid2 == uid) {
-        if (contacts[i].id == routeArgs.uid1) {
-          otherUser = contacts[i];
-          break;
-        }
-      }
-    }
+    User otherUser = routeArgs.uid1 == uid
+        ? Provider.of<Contacts>(context).getContact(routeArgs.uid2)
+        : Provider.of<Contacts>(context).getContact(routeArgs.uid1);
     Provider.of<Chats>(context).fetchMessages(chatId);
     final messages = Provider.of<Chats>(context).messages;
     messages.sort((a, b) => a.date.compareTo(b.date));
@@ -88,7 +74,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                   child: Icon(Icons.delete),
                                 ),
                                 onDismissed: (dir) async {
-                                  await Provider.of<Chats>(context)
+                                  await Provider.of<Chats>(context,
+                                          listen: false)
                                       .removeMessage(
                                           chatId, messages[index].id);
                                   setState(() {

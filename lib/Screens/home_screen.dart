@@ -20,24 +20,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     try {
-      Provider.of<Users>(context, listen: false).getCurrentUserData().then(
-            (value) => Provider.of<Jobs>(context, listen: false)
+      await Provider.of<Users>(context, listen: false)
+          .getCurrentUserData()
+          .then(
+            (value) async => await Provider.of<Jobs>(context, listen: false)
                 .fetchAndSetJobs()
-                .then((value) => Provider.of<Chats>(context, listen: false)
-                    .fetchAndSetChats())
+                .then((value) async =>
+                    await Provider.of<Chats>(context, listen: false)
+                        .fetchAndSetChats())
                 .then(
-                  (value) => Provider.of<Fav>(context, listen: false)
-                      .fetchUidFavStatus(),
+                  (value) async =>
+                      await Provider.of<Fav>(context, listen: false)
+                          .fetchUidFavStatus(),
                 )
                 .then(
-                  (value) => Provider.of<Contacts>(context, listen: false)
-                      .fetchAndSetContacts(),
+                  (value) async =>
+                      await Provider.of<Contacts>(context, listen: false)
+                          .fetchAndSetContacts(),
                 )
                 .then(
-                  (value) => Provider.of<Users>(context, listen: false)
-                      .getAllUserData(),
+                  (value) async =>
+                      await Provider.of<Users>(context, listen: false)
+                          .getAllUserData(),
                 ),
           );
     } catch (err) {
