@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:krow1/Screens/auth_screen.dart';
+import 'package:krow1/Screens/chats_screen.dart';
 import 'package:krow1/Screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -102,6 +103,41 @@ class PostDrawer extends StatelessWidget {
                     ),
                     Text(
                       'Profile',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                width: double.infinity - 10,
+                height: 50,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlue,
+                ),
+              ),
+            ),
+            Divider(),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed(
+                    ChatsScreen.routeName,
+                    arguments: false);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(
+                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      'Chats',
                       textAlign: TextAlign.center,
                     ),
                   ],

@@ -67,18 +67,34 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemCount: messages.length,
                       itemBuilder: (ctx, index) {
                         return messages[index].posterId == uid
-                            ? Container(
-                                alignment: Alignment.centerRight,
-                                padding: EdgeInsets.all(15),
-                                margin: EdgeInsets.all(15),
-                                child: Text(messages[index].text),
-                                decoration: BoxDecoration(
+                            ? Dismissible(
+                                key: Key(index.toString()),
+                                child: Container(
+                                  alignment: Alignment.centerRight,
+                                  padding: EdgeInsets.all(15),
+                                  margin: EdgeInsets.all(15),
+                                  child: Text(messages[index].text),
+                                  decoration: BoxDecoration(
                                     color: Colors.green,
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(15),
                                       topRight: Radius.circular(15),
                                       bottomLeft: Radius.circular(15),
-                                    )),
+                                    ),
+                                  ),
+                                ),
+                                background: Container(
+                                  color: Colors.red,
+                                  child: Icon(Icons.delete),
+                                ),
+                                onDismissed: (dir) async {
+                                  await Provider.of<Chats>(context)
+                                      .removeMessage(
+                                          chatId, messages[index].id);
+                                  setState(() {
+                                    messages.removeAt(index);
+                                  });
+                                },
                               )
                             : Container(
                                 alignment: Alignment.centerLeft,
@@ -127,6 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ],
                   )
                 ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
               height: 200,
             ),

@@ -78,9 +78,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ) sendFn = Provider.of<Users>(context).updateUserData;
 
     return isLoading
-        ? Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.blue,
+        ? Scaffold(
+            appBar: AppBar(
+              title: Text('Profile'),
+            ),
+            body: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.blue,
+              ),
             ),
           )
         : _isEdit
@@ -98,30 +103,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: DrawerForm(),
                       )
                     : null,
-                body: Container(
-                  height: 200,
-                  width: 200,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            ClipRRect(
-                              child: Container(
-                                child: UserImagePicker(_pickedImage),
-                                height: 100,
-                                width: 100,
-                              ),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                          ],
+                body: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        child: Container(
+                          child: UserImagePicker(_pickedImage),
+                          height: 100,
+                          width: 100,
                         ),
-                        Expanded(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(40),
                           child: TextFormField(
                             key: ValueKey('username'),
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value.isEmpty || value.length > 15) {
                                 return 'Please enter a valid UserName.';
                               }
                               return null;
@@ -135,11 +135,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                           ),
                         ),
-                        Expanded(
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(40),
                           child: TextFormField(
                             key: ValueKey('phone'),
                             validator: (value) {
-                              if (value.isEmpty) {
+                              if (value.isEmpty || value.length > 10) {
                                 return 'Please enter a valid Phone Number.';
                               }
                               return null;
@@ -153,22 +156,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                           ),
                         ),
-                        RaisedButton(
-                          onPressed: () async {
-                            bool didChange = await _trySubmit(sendFn);
-                            if (didChange) {
-                              setState(() {
-                                _isEdit = !(_isEdit);
-                              });
-                            }
-                          },
-                          child: Container(
-                            child: Text('Save Changes'),
-                          ),
-                          color: Colors.blue,
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          bool didChange = await _trySubmit(sendFn);
+                          if (didChange) {
+                            setState(() {
+                              _isEdit = !(_isEdit);
+                            });
+                          }
+                        },
+                        child: Container(
+                          child: Text('Save Changes'),
                         ),
-                      ],
-                    ),
+                        color: Colors.blue,
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                   ),
                 ),
               )
@@ -198,11 +204,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           borderRadius: BorderRadius.circular(100),
                         ),
-                        Text('Username:\t' + curUse.username),
+                        Text(
+                          'Username:\t' + curUse.username,
+                          style: TextStyle(
+                              backgroundColor: Colors.blue,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
                       ],
                     ),
-                    Text('Email:\t' + curUse.email),
-                    Text('Phone:\t' + curUse.phone),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 5 - 30,
+                    ),
+                    Text(
+                      'Email:\t' + curUse.email,
+                      style: TextStyle(
+                          backgroundColor: Colors.blue,
+                          fontSize: 20,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Phone:\t' + curUse.phone,
+                      style: TextStyle(
+                          backgroundColor: Colors.blue,
+                          fontSize: 20,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 3,
+                    ),
                     RaisedButton(
                       onPressed: () {
                         setState(() {

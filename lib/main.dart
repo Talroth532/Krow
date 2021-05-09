@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Contacts.dart';
-import 'package:krow1/Screens/fav_job_screen.dart';
+import 'package:krow1/Widgets/home.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
+import './Providers/Contacts.dart';
+import './Screens/fav_job_screen.dart';
 import './Providers/Fav.dart';
 import './Screens/chats_screen.dart';
 import './Screens/my_jobs.dart';
@@ -47,21 +47,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.white,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.onAuthStateChanged,
-          builder: (ctx, snapshot) {
-            if (snapshot.hasData) {
-              return FutureBuilder(
-                  future: FirebaseAuth.instance.currentUser(),
-                  builder: (ctx, AsyncSnapshot<FirebaseUser> spt) {
-                    if (spt.data.uid != null)
-                      Provider.of<Users>(ctx).refreshUserData(spt.data.uid);
-                    return HomeScreen();
-                  });
-            }
-            return AuthScreen();
-          },
-        ),
+        home: Home(),
         routes: {
           AuthScreen.routName: (ctx) => AuthScreen(),
           HomeScreen.routName: (ctx) => HomeScreen(),

@@ -55,6 +55,7 @@ class Users with ChangeNotifier {
       });
     }
     uid = authresult.user.uid;
+    notifyListeners();
     return '';
   }
 
@@ -113,6 +114,7 @@ class Users with ChangeNotifier {
 
   void refreshUserData(String uid) {
     this.uid = uid;
+    notifyListeners();
   }
 
   Future<void> updateUserData(

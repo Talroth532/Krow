@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/chat_screen.dart';
-import 'package:krow1/Widgets/chat_tile.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/chat_screen.dart';
+import '../Widgets/chat_tile.dart';
+import '../Widgets/post_drawer.dart';
 import '../models/chat.dart';
 import '../Providers/Chats.dart';
 import '../Providers/User.dart';
 import '../Widgets/drawer_form.dart';
 
-class ChatsScreen extends StatelessWidget {
+class ChatsScreen extends StatefulWidget {
   static String routeName = '/ChatsScreen';
 
+  @override
+  _ChatsScreenState createState() => _ChatsScreenState();
+}
+
+class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     List<Chat> allChats = Provider.of<Chats>(context).chats;
     String uid = Provider.of<Users>(context).uid;
+    bool _isFind = ModalRoute.of(context).settings.arguments as bool;
 
     List<Chat> chats = allChats
         .where(
@@ -26,24 +33,50 @@ class ChatsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Chats'),
       ),
-      endDrawer: Drawer(
-        child: DrawerForm(),
-      ),
+      drawer: _isFind
+          ? null
+          : Drawer(
+              child: PostDrawer(),
+            ),
+      endDrawer: _isFind
+          ? Drawer(
+              child: DrawerForm(),
+            )
+          : null,
       body: chats != null
           ? ListView.builder(
               itemBuilder: (ctx, index) {
                 return Padding(
                   padding: EdgeInsets.all(15),
-                  child: FlatButton(
-                    child: ChatTile(
-                      chat: chats[index],
+                  child: Dismissible(
+                    key: Key(
+                      index.toString(),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        ChatScreen.routeName,
-                        arguments: chats[index],
-                      );
+                    child: FlatButton(
+                      child: ChatTile(
+                        chat: chats[index],
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          ChatScreen.routeName,
+                          arguments: chats[index],
+                        );
+                      },
+                    ),
+                    onDismissed: (DismissDirection dir) async {
+                      await Provider.of<Chats>(context, listen: false)
+                          .removeChat(chats[index].id);
+                      setState(() {
+                        chats.removeAt(index);
+                      });
                     },
+                    background: Container(
+                      color: Colors.red,
+                      child: Icon(
+                        Icons.delete,
+                      ),
+                      alignment: Alignment.centerRight,
+                    ),
                   ),
                 );
               },

@@ -19,7 +19,6 @@ class _JobsScreenState extends State<JobsScreen> {
   @override
   Widget build(BuildContext context) {
     List<Job> jobs = Provider.of<Jobs>(context).jobs;
-    List<UserJob> userJobs = Provider.of<Fav>(context).userJobs;
     return Scaffold(
       appBar: AppBar(
         title: Text('Find A Job'),

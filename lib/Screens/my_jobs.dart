@@ -42,6 +42,11 @@ class _MyJobScreenState extends State<MyJobScreen> {
               setState(() {
                 myJobs.removeAt(index);
               });
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Job Removed'),
+                ),
+              );
             },
             background: Container(
               color: Colors.red,

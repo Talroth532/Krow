@@ -41,6 +41,7 @@ class Chats with ChangeNotifier {
     var messagesDocs = messagesSnapshot.documents;
     _messages = List<Message>.generate(messagesDocs.length, (index) {
       return Message(
+        id: messagesDocs[index].documentID,
         text: messagesDocs[index]['text'],
         posterId: messagesDocs[index]['posterId'],
         date: messagesDocs[index]['date'],
@@ -67,8 +68,8 @@ class Chats with ChangeNotifier {
     return [..._messages];
   }
 
-  void sendMessage(String cid, String uid, String enterdMessage) async {
-    Firestore.instance
+  Future<void> sendMessage(String cid, String uid, String enterdMessage) async {
+    var docref = await Firestore.instance
         .collection('chats')
         .document(cid)
         .collection('messages')
@@ -78,9 +79,25 @@ class Chats with ChangeNotifier {
       'date': Timestamp.now(),
     });
     messages.add(Message(
+      id: docref.documentID,
       posterId: uid,
       text: enterdMessage,
       date: Timestamp.now(),
     ));
+  }
+
+  Future<void> removeChat(String cid) async {
+    await Firestore.instance.collection('chats').document(cid).delete();
+    _chats.removeWhere((element) => element.id == cid);
+  }
+
+  Future<void> removeMessage(String cid, String mid) async {
+    await Firestore.instance
+        .collection('chats')
+        .document(cid)
+        .collection('messages')
+        .document(mid)
+        .delete();
+    messages.removeWhere((element) => element.id == mid);
   }
 }

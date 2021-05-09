@@ -20,7 +20,6 @@ class JobTile extends StatefulWidget {
 class _JobTileState extends State<JobTile> {
   @override
   Widget build(BuildContext context) {
-    String uid = Provider.of<Users>(context).uid;
     Function changeFav = Provider.of<Fav>(context).updateStatus;
     bool isFav = Provider.of<Fav>(context).checkIfExist(widget.job);
     return Card(
@@ -47,7 +46,7 @@ class _JobTileState extends State<JobTile> {
                         color: Colors.yellow,
                       ),
                 onPressed: () async {
-                  await changeFav(uid, widget.job.id);
+                  await changeFav(widget.job.id);
                   setState(() {
                     isFav = !isFav;
                   });

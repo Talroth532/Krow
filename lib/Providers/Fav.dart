@@ -28,7 +28,6 @@ class Fav with ChangeNotifier {
   }
 
   Future<void> createNewFav(
-    String uid,
     String jobId,
   ) async {
     var document = await Firestore.instance.collection('user-job').add(
@@ -47,7 +46,6 @@ class Fav with ChangeNotifier {
   }
 
   Future<void> updateStatus(
-    String uid,
     String jobId,
   ) async {
     int i;
@@ -68,7 +66,7 @@ class Fav with ChangeNotifier {
         },
       );
       if (index == -1) {
-        createNewFav(uid, jobId);
+        createNewFav(jobId);
       } else {
         await Firestore.instance
             .collection('user-job')
@@ -77,7 +75,7 @@ class Fav with ChangeNotifier {
         _userJobs.removeAt(index);
       }
     } else {
-      await createNewFav(uid, jobId);
+      await createNewFav(jobId);
     }
   }
 
@@ -101,6 +99,9 @@ class Fav with ChangeNotifier {
             .collection('user-job')
             .document(docs[i].documentID)
             .delete();
+      }
+      if (_userJobs[i].jobId == jobId) {
+        _userJobs.removeAt(i);
       }
     }
   }

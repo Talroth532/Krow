@@ -68,5 +68,10 @@ class Jobs with ChangeNotifier {
 
   Future<void> removeJob(String jobId) async {
     await Firestore.instance.collection('jobs').document(jobId).delete();
+    for (int i = 0; i < _jobs.length; i++) {
+      if (_jobs[i].id == jobId) {
+        _jobs.removeAt(i);
+      }
+    }
   }
 }

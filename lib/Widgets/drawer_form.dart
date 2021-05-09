@@ -129,8 +129,9 @@ class _DrawerFormState extends State<DrawerForm> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(ChatsScreen.routeName);
+                Navigator.of(context).pushReplacementNamed(
+                    ChatsScreen.routeName,
+                    arguments: true);
               },
               child: Container(
                 child: Row(
