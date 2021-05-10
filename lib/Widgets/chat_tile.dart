@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Contacts.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/User.dart';
-import 'package:krow1/models/chat.dart';
-import 'package:krow1/models/user.dart';
+import '../models/chat.dart';
+import '../models/user.dart';
 
 class ChatTile extends StatefulWidget {
   final Chat chat;
@@ -22,9 +21,10 @@ class _ChatTileState extends State<ChatTile> {
   Widget build(BuildContext context) {
     User otherUser;
     String uid = Provider.of<Users>(context).uid;
-    otherUser = widget.chat.uid1 == uid
-        ? Provider.of<Contacts>(context).getContact(widget.chat.uid2)
-        : Provider.of<Contacts>(context).getContact(widget.chat.uid1);
+    widget.chat.uid1 == uid
+        ? Provider.of<Users>(context).getIdUser(widget.chat.uid2)
+        : Provider.of<Users>(context).getIdUser(widget.chat.uid1);
+    otherUser = Provider.of<Users>(context).idUser;
 
     return Container(
       decoration: BoxDecoration(

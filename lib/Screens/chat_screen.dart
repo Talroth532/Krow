@@ -120,19 +120,21 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       IconButton(
-                          icon: Icon(Icons.send),
-                          onPressed: _enterdMessage.trim().isEmpty
-                              ? null
-                              : () async {
-                                  await _sendMessage(
-                                      chatId, uid, _enterdMessage);
-                                }),
+                        icon: Icon(Icons.send),
+                        onPressed: _enterdMessage.trim().isEmpty
+                            ? null
+                            : () async {
+                                await _sendMessage(chatId, uid, _enterdMessage);
+                                setState(() {
+                                  _controller.clear();
+                                });
+                              },
+                      ),
                     ],
                   )
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
-              height: 200,
             ),
     );
   }
