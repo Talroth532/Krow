@@ -30,26 +30,36 @@ class Chats with ChangeNotifier {
     return [..._chats];
   }
 
-  Future<void> fetchMessages(String chatId) async {
-    try {
-      var messagesSnapshot = await Firestore.instance
-          .collection('chats')
-          .document(chatId)
-          .collection('messages')
-          .getDocuments();
-      var messagesDocs = messagesSnapshot.documents;
-      _messages = List<Message>.generate(messagesDocs.length, (index) {
-        return Message(
-          id: messagesDocs[index].documentID,
-          text: messagesDocs[index]['text'],
-          posterId: messagesDocs[index]['posterId'],
-          date: messagesDocs[index]['date'],
-        );
-      });
-    } catch (err) {
-      print(err);
-    }
-    notifyListeners();
+  Stream<List<Message>> fetchMessages(String chatId) {
+    return Firestore.instance
+        .collection('chats')
+        .document(chatId)
+        .collection('messages')
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map(
+      (list) {
+        return list.documents.map(
+          (doc) {
+            return Message(
+              id: doc.documentID,
+              text: doc['text'],
+              posterId: doc['posterId'],
+              date: doc['date'],
+            );
+          },
+        ).toList();
+      },
+    );
+    // var messagesDocs = messagesSnapshot.documents;
+    // _messages = List<Message>.generate(messagesDocs.length, (index) {
+    // return Message(
+    //   id: messagesDocs[index].documentID,
+    //   text: messagesDocs[index]['text'],
+    //   posterId: messagesDocs[index]['posterId'],
+    //   date: messagesDocs[index]['date'],
+    //   );
+    // });
   }
 
   Future<void> createNewChat(String uid1, String uid2) async {
@@ -72,7 +82,7 @@ class Chats with ChangeNotifier {
   }
 
   Future<void> sendMessage(String cid, String uid, String enterdMessage) async {
-    var docref = await Firestore.instance
+    Firestore.instance
         .collection('chats')
         .document(cid)
         .collection('messages')
@@ -81,13 +91,6 @@ class Chats with ChangeNotifier {
       'text': enterdMessage,
       'date': Timestamp.now(),
     });
-    _messages.add(Message(
-      id: docref.documentID,
-      posterId: uid,
-      text: enterdMessage,
-      date: Timestamp.now(),
-    ));
-    notifyListeners();
   }
 
   Future<void> removeChat(String cid) async {
@@ -103,7 +106,5 @@ class Chats with ChangeNotifier {
         .collection('messages')
         .document(mid)
         .delete();
-    messages.removeWhere((element) => element.id == mid);
-    notifyListeners();
   }
 }
