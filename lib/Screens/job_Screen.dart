@@ -82,29 +82,36 @@ class _JobScreenState extends State<JobScreen> {
                         ),
                         Center(
                           child: RaisedButton(
-                            onPressed: () async {
-                              int index =
-                                  Provider.of<Chats>(context, listen: false)
-                                      .chats
-                                      .indexWhere((element) {
-                                return (element.uid1 == routeArgs.posterId ||
-                                        element.uid2 == routeArgs.posterId) &&
-                                    (element.uid1 == curUseUid ||
-                                        element.uid2 == curUseUid);
-                              });
-                              if (index == -1) {
-                                await Provider.of<Chats>(context, listen: false)
-                                    .createNewChat(
-                                        curUseUid, routeArgs.posterId);
-                                Navigator.of(context).pushReplacementNamed(
-                                    ChatsScreen.routeName,
-                                    arguments: true);
-                              } else {
-                                Navigator.of(context).pushReplacementNamed(
-                                    ChatsScreen.routeName,
-                                    arguments: true);
-                              }
-                            },
+                            onPressed: curUseUid == posterUid
+                                ? null
+                                : () async {
+                                    int index = Provider.of<Chats>(context,
+                                            listen: false)
+                                        .chats
+                                        .indexWhere((element) {
+                                      return (element.uid1 ==
+                                                  routeArgs.posterId ||
+                                              element.uid2 ==
+                                                  routeArgs.posterId) &&
+                                          (element.uid1 == curUseUid ||
+                                              element.uid2 == curUseUid);
+                                    });
+                                    if (index == -1) {
+                                      await Provider.of<Chats>(context,
+                                              listen: false)
+                                          .createNewChat(
+                                              curUseUid, routeArgs.posterId);
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              ChatsScreen.routeName,
+                                              arguments: true);
+                                    } else {
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(
+                                              ChatsScreen.routeName,
+                                              arguments: true);
+                                    }
+                                  },
                             child: Container(
                               child: Text(
                                 'Contact Poster',
