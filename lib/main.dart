@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           accentColor: Colors.white,
+          fontFamily: 'Quicksand',
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Home(),

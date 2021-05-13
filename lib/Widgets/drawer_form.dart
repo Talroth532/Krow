@@ -43,6 +43,9 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Jobs',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +71,7 @@ class _DrawerFormState extends State<DrawerForm> {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://static.vecteezy.com/system/resources/previews/001/189/063/non_2x/star-rounded-png.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -77,6 +80,9 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Favorite Jobs',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +109,7 @@ class _DrawerFormState extends State<DrawerForm> {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://cdn.iconscout.com/icon/free/png-256/account-avatar-profile-human-man-user-30448.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -112,6 +118,9 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Profile',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +147,7 @@ class _DrawerFormState extends State<DrawerForm> {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://webstockreview.net/images/conversation-clipart-group-chat-6.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -147,6 +156,9 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Chats',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +183,7 @@ class _DrawerFormState extends State<DrawerForm> {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-512.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -180,7 +192,10 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Home Screen',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -206,7 +221,7 @@ class _DrawerFormState extends State<DrawerForm> {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_logOut-ltr.svg/1200px-OOjs_UI_icon_logOut-ltr.svg.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -215,7 +230,10 @@ class _DrawerFormState extends State<DrawerForm> {
                     Text(
                       'Log Out',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,

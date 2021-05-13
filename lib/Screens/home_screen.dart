@@ -152,32 +152,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     ),
                 //   ],
                 // ),
-                Slidable(
-              key: const Key('id'),
-              child: SlideableHome(),
-              delegate: new SlidableDrawerDelegate(),
-              leftActions: [
-                IconSlideAction(
-                  caption: 'Find A Job',
-                  color: Colors.green,
-                  icon: Icons.control_point_rounded,
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(JobsScreen.routeName);
-                  },
-                )
-              ],
-              rightActions: [
-                IconSlideAction(
-                  caption: 'Post A Job',
-                  color: Colors.purple,
-                  icon: Icons.control_point_rounded,
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(PostJobScreen.routeName);
-                  },
-                )
-              ],
+                SingleChildScrollView(
+              child: Slidable(
+                key: const Key('id'),
+                child: SlideableHome(),
+                delegate: new SlidableDrawerDelegate(),
+                leftActions: [
+                  IconSlideAction(
+                    caption: 'Find A Job',
+                    color: Colors.green,
+                    icon: Icons.control_point_rounded,
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(JobsScreen.routeName);
+                    },
+                  )
+                ],
+                rightActions: [
+                  IconSlideAction(
+                    caption: 'Post A Job',
+                    color: Colors.purple,
+                    icon: Icons.control_point_rounded,
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(PostJobScreen.routeName);
+                    },
+                  )
+                ],
+              ),
             ));
   }
 }

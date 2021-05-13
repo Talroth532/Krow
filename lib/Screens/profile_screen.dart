@@ -204,34 +204,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           borderRadius: BorderRadius.circular(100),
                         ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Text(
                           'Username:\t' + curUse.username,
                           style: TextStyle(
-                              backgroundColor: Colors.blue,
-                              fontSize: 20,
-                              color: Colors.white),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 5 - 30,
                     ),
-                    Text(
-                      'Email:\t' + curUse.email,
-                      style: TextStyle(
-                          backgroundColor: Colors.blue,
-                          fontSize: 20,
-                          color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Email:\t' + curUse.email,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Phone:\t' + curUse.phone,
-                      style: TextStyle(
-                          backgroundColor: Colors.blue,
-                          fontSize: 20,
-                          color: Colors.white),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Phone:\t' + curUse.phone,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 3,
@@ -243,7 +258,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         });
                       },
                       child: Container(
-                        child: Text('Edit Profile'),
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       color: Colors.blue,
                     ),

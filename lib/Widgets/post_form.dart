@@ -93,7 +93,8 @@ class _PostFormState extends State<PostForm> {
                       key: ValueKey('title'),
                       validator: (value) {
                         if (value.isEmpty ||
-                            value.length < 4 && value.length > 8) {
+                            value.length < 4 ||
+                            value.length > 8) {
                           return 'Please enter a valid title.';
                         }
                         return null;
@@ -112,7 +113,8 @@ class _PostFormState extends State<PostForm> {
                     child: TextFormField(
                       key: ValueKey('description'),
                       validator: (value) {
-                        if (value.isEmpty || value.length < 10) {
+                        if (value.isEmpty ||
+                            value.length < 10 && value.length > 50) {
                           return 'Please enter a valid description.';
                         }
                         return null;
@@ -131,14 +133,14 @@ class _PostFormState extends State<PostForm> {
                     child: TextFormField(
                       key: ValueKey('payment'),
                       validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid email address.';
+                        if (value.isEmpty || value.length > 10) {
+                          return 'Please enter a valid payment amount.';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'Payment',
+                        labelText: 'Payment per hour',
                       ),
                       onSaved: (value) {
                         _payment = value;

@@ -44,7 +44,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     child: DrawerForm(),
                   )
                 : null,
-            body: Text('You have no chats'),
+            body: Center(
+              child: Text(
+                'You have no chats',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           )
         : Scaffold(
             appBar: AppBar(
@@ -66,6 +73,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                       return Padding(
                         padding: EdgeInsets.all(15),
                         child: Dismissible(
+                          direction: DismissDirection.endToStart,
                           key: Key(
                             index.toString(),
                           ),

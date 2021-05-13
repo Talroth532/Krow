@@ -30,9 +30,8 @@ class _MyJobScreenState extends State<MyJobScreen> {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return Dismissible(
-            key: Key(
-              index.toString(),
-            ),
+            key: UniqueKey(),
+            direction: DismissDirection.endToStart,
             child: MyJobTile(job: myJobs[index]),
             onDismissed: (DismissDirection dir) async {
               await Provider.of<Jobs>(context, listen: false)

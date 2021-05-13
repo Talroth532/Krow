@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/Fav.dart';
-import '../Providers/User.dart';
 import '../models/job.dart';
 
 class JobTile extends StatefulWidget {
@@ -28,13 +27,27 @@ class _JobTileState extends State<JobTile> {
           Row(
             children: [
               Container(
-                child: Image.network(widget.job.imageUrl),
+                child: ClipRRect(
+                  child: Image.network(widget.job.imageUrl),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 width: 70,
                 padding: EdgeInsets.all(5),
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(20)),
               ),
-              Text(widget.job.title),
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                widget.job.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+              ),
               IconButton(
                 icon: isFav
                     ? Icon(
@@ -51,12 +64,18 @@ class _JobTileState extends State<JobTile> {
                     isFav = !isFav;
                   });
                 },
+                alignment: Alignment.topRight,
               )
             ],
             mainAxisAlignment: MainAxisAlignment.start,
           ),
           Container(
-            child: Text(widget.job.description),
+            child: Text(
+              widget.job.description,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             padding: EdgeInsets.all(10),
           )
         ],

@@ -23,25 +23,41 @@ class _MyJobTileState extends State<MyJobTile> {
           Row(
             children: [
               Container(
-                child: Image.network(widget.job.imageUrl),
+                child: ClipRRect(
+                  child: Image.network(widget.job.imageUrl),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 width: 70,
                 padding: EdgeInsets.all(5),
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(20)),
               ),
-              Text(widget.job.title),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 10,
+              ),
+              Text(
+                widget.job.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
             mainAxisAlignment: MainAxisAlignment.start,
           ),
           Container(
-            child: Text(widget.job.description),
+            child: Text(
+              widget.job.description,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             padding: EdgeInsets.all(10),
           )
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
       elevation: 5,
-      color: Colors.grey[400],
+      color: Colors.lightBlue,
     );
   }
 }

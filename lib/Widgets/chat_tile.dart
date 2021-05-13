@@ -33,16 +33,24 @@ class _ChatTileState extends State<ChatTile> {
       ),
       child: Row(
         children: [
-          Image.network(
-            otherUser.imageUrl,
-            height: 50,
-            width: 50,
+          ClipRRect(
+            child: Image.network(
+              otherUser.imageUrl,
+              height: 50,
+              width: 50,
+            ),
+            borderRadius: BorderRadius.circular(50),
           ),
           Text(
             otherUser.username,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
           )
         ],
       ),
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.zero,
     );
   }
 }

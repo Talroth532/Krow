@@ -14,8 +14,9 @@ class SlideableHome extends StatelessWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      'https://image.freepik.com/free-vector/beautiful-mandala-style-background-with-text-space_1017-27397.jpg',
+                      'https://st.depositphotos.com/1272497/1275/v/600/depositphotos_12754007-stock-illustration-blue-background-and-frame.jpg',
                       height: double.infinity,
+                      width: double.infinity,
                       fit: BoxFit.fill,
                     ),
                     Container(
@@ -25,7 +26,7 @@ class SlideableHome extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 30,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -46,8 +47,9 @@ class SlideableHome extends StatelessWidget {
                 child: Stack(
                   children: [
                     Image.network(
-                      'https://image.freepik.com/free-vector/beautiful-mandala-style-background-with-text-space_1017-27397.jpg',
+                      'https://st.depositphotos.com/1272497/1275/v/600/depositphotos_12754007-stock-illustration-blue-background-and-frame.jpg',
                       height: double.infinity,
+                      width: double.infinity,
                       fit: BoxFit.fill,
                     ),
                     Container(
@@ -57,7 +59,7 @@ class SlideableHome extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     ),

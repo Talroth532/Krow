@@ -46,14 +46,32 @@ class _JobScreenState extends State<JobScreen> {
                 child: Column(
                   children: [
                     Container(
-                        child: Text('Description :\t' + routeArgs.description),
-                        padding: EdgeInsets.all(10)),
+                      child: Text(
+                        'Description :\n' + routeArgs.description,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                    ),
                     Container(
-                        child: Text('Payment :\t' + routeArgs.payment),
-                        padding: EdgeInsets.all(10)),
+                      child: Text(
+                        'Payment per hour :\n' + routeArgs.payment + '\$',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                    ),
                     Container(
-                        child: Text('Poster :\t' + otherUser.username),
-                        padding: EdgeInsets.all(10)),
+                      child: Text(
+                        'Poster :\n' + otherUser.username,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                    ),
                     SizedBox(
                       height: 200,
                     ),
@@ -88,7 +106,12 @@ class _JobScreenState extends State<JobScreen> {
                               }
                             },
                             child: Container(
-                              child: Text('Contact Poster'),
+                              child: Text(
+                                'Contact Poster',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         )

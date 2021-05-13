@@ -33,10 +33,13 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            Image.network(
-              otherUser.imageUrl,
-              width: 20,
-              height: 20,
+            ClipRRect(
+              child: Image.network(
+                otherUser.imageUrl,
+                width: 40,
+                height: 40,
+              ),
+              borderRadius: BorderRadius.circular(20),
             ),
             Text(otherUser.username)
           ],
@@ -62,45 +65,68 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemCount: messages.length,
                       itemBuilder: (ctx, index) {
                         return messages[index].posterId == uid
-                            ? Dismissible(
-                                key: UniqueKey(),
-                                child: Container(
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.all(15),
-                                  margin: EdgeInsets.all(15),
-                                  child: Text(messages[index].text),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15),
+                            ? Align(
+                                alignment: Alignment.centerRight,
+                                child: Dismissible(
+                                  key: UniqueKey(),
+                                  direction: DismissDirection.startToEnd,
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            10,
+                                    padding: EdgeInsets.all(15),
+                                    margin: EdgeInsets.all(15),
+                                    child: Text(
+                                      messages[index].text,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                        bottomLeft: Radius.circular(15),
+                                      ),
                                     ),
                                   ),
+                                  background: Container(
+                                    color: Colors.red,
+                                    child: Icon(Icons.delete),
+                                    alignment: Alignment.centerLeft,
+                                  ),
+                                  onDismissed: (dir) async {
+                                    await Provider.of<Chats>(context,
+                                            listen: false)
+                                        .removeMessage(
+                                            chatId, messages[index].id);
+                                  },
                                 ),
-                                background: Container(
-                                  color: Colors.red,
-                                  child: Icon(Icons.delete),
-                                ),
-                                onDismissed: (dir) async {
-                                  await Provider.of<Chats>(context,
-                                          listen: false)
-                                      .removeMessage(
-                                          chatId, messages[index].id);
-                                },
                               )
-                            : Container(
+                            : Align(
                                 alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.all(15),
-                                margin: EdgeInsets.all(15),
-                                child: Text(messages[index].text),
-                                decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                      bottomRight: Radius.circular(15),
-                                    )),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width / 2 -
+                                      10,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.all(15),
+                                  margin: EdgeInsets.all(15),
+                                  child: Text(
+                                    messages[index].text,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                        bottomRight: Radius.circular(15),
+                                      )),
+                                ),
                               );
                       },
                     );

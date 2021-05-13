@@ -27,7 +27,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://icons-for-free.com/iconfiles/png/512/new+plus+icon-1320196808672578110.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -36,6 +36,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'Post A Job',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +61,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://pics.freeicons.io/uploads/icons/png/19360626041548336247-512.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -69,6 +70,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'My Jobs',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -95,7 +97,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://cdn.iconscout.com/icon/free/png-256/account-avatar-profile-human-man-user-30448.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -104,6 +106,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'Profile',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -130,7 +133,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://webstockreview.net/images/conversation-clipart-group-chat-6.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -139,6 +142,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'Chats',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -163,7 +167,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-512.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -172,6 +176,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'Home Screen',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -197,7 +202,7 @@ class PostDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                       child: Image.network(
-                          'https://i.pinimg.com/originals/6d/00/b2/6d00b2a3b7dd96642ca14a158a53655e.png'),
+                          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_logOut-ltr.svg/1200px-OOjs_UI_icon_logOut-ltr.svg.png'),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     Container(
@@ -206,6 +211,7 @@ class PostDrawer extends StatelessWidget {
                     Text(
                       'Log Out',
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
