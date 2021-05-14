@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:krow1/Widgets/home.dart';
 import 'package:provider/provider.dart';
 
-import './Providers/Contacts.dart';
 import './Screens/fav_job_screen.dart';
 import './Providers/Fav.dart';
 import './Screens/chats_screen.dart';
@@ -34,10 +33,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Users, Fav>(
           create: null,
           update: (ctx, user, _) => Fav(user.uid),
-        ),
-        ChangeNotifierProxyProvider<Users, Contacts>(
-          create: null,
-          update: (ctx, user, _) => Contacts(user.uid),
         ),
       ],
       child: MaterialApp(

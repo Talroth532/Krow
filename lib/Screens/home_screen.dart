@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Contacts.dart';
 import 'package:krow1/Providers/Fav.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -37,22 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             .fetchUidFavStatus()
                             .then(
                               (value) =>
-                                  Provider.of<Contacts>(context, listen: false)
-                                      .fetchAndSetContacts()
+                                  Provider.of<Users>(context, listen: false)
+                                      .getAllUserData()
                                       .then(
-                                        (value) => Provider.of<Users>(context,
-                                                listen: false)
-                                            .getAllUserData()
-                                            .then(
-                                          (value) {
-                                            setState(
-                                              () {
-                                                _isLoading = false;
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      ),
+                                (value) {
+                                  setState(
+                                    () {
+                                      _isLoading = false;
+                                    },
+                                  );
+                                },
+                              ),
                             ),
                       ),
                 ),
