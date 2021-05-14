@@ -7,6 +7,7 @@ import '../models/job.dart';
 
 class JobTile extends StatefulWidget {
   final Job job;
+  bool _isLoading = false;
 
   JobTile({
     @required this.job,
@@ -48,24 +49,39 @@ class _JobTileState extends State<JobTile> {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 5,
               ),
-              IconButton(
-                icon: isFav
-                    ? Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      )
-                    : Icon(
-                        Icons.star_border,
-                        color: Colors.yellow,
+              widget._isLoading
+                  ? Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.blue,
+                        ),
                       ),
-                onPressed: () async {
-                  await changeFav(widget.job.id);
-                  setState(() {
-                    isFav = !isFav;
-                  });
-                },
-                alignment: Alignment.topRight,
-              )
+                    )
+                  : IconButton(
+                      icon: isFav
+                          ? Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            )
+                          : Icon(
+                              Icons.star_border,
+                              color: Colors.yellow,
+                            ),
+                      onPressed: () async {
+                        setState(() {
+                          widget._isLoading = true;
+                        });
+                        await changeFav(widget.job.id);
+                        setState(() {
+                          isFav = !isFav;
+                          widget._isLoading = false;
+                        });
+                      },
+                      alignment: Alignment.topRight,
+                    )
             ],
             mainAxisAlignment: MainAxisAlignment.start,
           ),
