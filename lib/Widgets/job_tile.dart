@@ -27,27 +27,34 @@ class _JobTileState extends State<JobTile> {
         children: [
           Row(
             children: [
-              Container(
-                child: ClipRRect(
-                  child: Image.network(widget.job.imageUrl),
-                  borderRadius: BorderRadius.circular(15),
-                ),
+              Row(
+                children: [
+                  Container(
+                    child: ClipRRect(
+                      child: Image.network(widget.job.imageUrl),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    width: 70,
+                    padding: EdgeInsets.all(5),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    width: 100,
+                    child: Text(
+                      widget.job.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
                 width: 70,
-                padding: EdgeInsets.all(5),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                widget.job.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 5,
               ),
               widget._isLoading
                   ? Align(
