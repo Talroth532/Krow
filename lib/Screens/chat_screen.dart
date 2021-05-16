@@ -5,7 +5,6 @@ import '../Providers/Chats.dart';
 import '../Providers/User.dart';
 import '../models/chat.dart';
 import '../models/user.dart';
-import '../Providers/Contacts.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = '/ChatScreen';

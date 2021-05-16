@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krow1/Widgets/home.dart';
 import 'package:provider/provider.dart';
+import 'package:dcdg/dcdg.dart';
 
 import './Screens/fav_job_screen.dart';
 import './Providers/Fav.dart';

@@ -94,7 +94,7 @@ class _PostFormState extends State<PostForm> {
                       validator: (value) {
                         if (value.isEmpty ||
                             value.length < 4 ||
-                            value.length > 8) {
+                            value.length > 15) {
                           return 'Please enter a valid title.';
                         }
                         return null;

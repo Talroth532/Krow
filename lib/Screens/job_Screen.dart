@@ -43,7 +43,7 @@ class _JobScreenState extends State<JobScreen> {
             flex: 5,
             child: Container(
               child: Card(
-                child: Column(
+                child: ListView(
                   children: [
                     Container(
                       child: Text(
@@ -72,8 +72,17 @@ class _JobScreenState extends State<JobScreen> {
                       ),
                       padding: EdgeInsets.all(10),
                     ),
+                    Container(
+                      child: Text(
+                        'Phone :\n' + otherUser.phone,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                    ),
                     SizedBox(
-                      height: 200,
+                      height: MediaQuery.of(context).size.height / 5,
                     ),
                     Row(
                       children: [
@@ -125,7 +134,6 @@ class _JobScreenState extends State<JobScreen> {
                       ],
                     )
                   ],
-                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
                 color: Colors.lightBlue,
                 elevation: 0,

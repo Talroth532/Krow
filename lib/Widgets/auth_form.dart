@@ -136,7 +136,9 @@ class _AuthFormState extends State<AuthForm> {
                             TextFormField(
                               key: ValueKey('username'),
                               validator: (value) {
-                                if (value.isEmpty || value.length < 4) {
+                                if (value.isEmpty ||
+                                    value.length < 4 ||
+                                    value.length > 18) {
                                   return 'Please enter at least 4 characters';
                                 }
                                 return null;

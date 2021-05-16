@@ -167,7 +167,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
                         },
                         child: Container(
-                          child: Text('Save Changes'),
+                          child: Text(
+                            'Save Changes',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                         color: Colors.blue,
                       ),
