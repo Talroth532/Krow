@@ -74,9 +74,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         padding: EdgeInsets.all(15),
                         child: Dismissible(
                           direction: DismissDirection.endToStart,
-                          key: Key(
-                            index.toString(),
-                          ),
+                          key: UniqueKey(),
                           child: FlatButton(
                             child: ChatTile(
                               chat: chats[index],
