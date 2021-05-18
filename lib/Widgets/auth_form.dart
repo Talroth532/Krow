@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:krow1/Screens/home_screen.dart';
 import 'dart:io';
 
-import '../pickers/user_image_picker.dart';
+import 'user_image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(

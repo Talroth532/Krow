@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:krow1/Screens/my_jobs.dart';
 
-import '../pickers/user_image_picker.dart';
+import 'user_image_picker.dart';
 
 class PostForm extends StatefulWidget {
   final Function(
