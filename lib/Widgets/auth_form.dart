@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:krow1/Screens/home_screen.dart';
 import 'dart:io';
 
+import '../Screens/home_screen.dart';
 import 'user_image_picker.dart';
 
 class AuthForm extends StatefulWidget {
@@ -38,6 +38,9 @@ class _AuthFormState extends State<AuthForm> {
     _userImageFile = image;
   }
 
+// טענת כניסה: הפעולה לא מקבלת משתנים
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה לוקחת את הנתונים שהמשתמש הכניס בתיבות הטקסט, בודקת האם הוא עונה על התנאים שהוצבו לכל תיבת טקסט ואם כן, מריץ את פעולת ההרשמה/כניסה בפרובידר ואם לא, מראה הודעה של השגיאה המתאימה.
   Future<void> _trySubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();

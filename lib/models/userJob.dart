@@ -9,5 +9,5 @@ class UserJob {
     @required this.id,
     @required this.uid,
     @required this.jobId,
-  });
+  }); // Constructor
 }

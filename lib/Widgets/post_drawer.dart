@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/auth_screen.dart';
-import 'package:krow1/Screens/chats_screen.dart';
-import 'package:krow1/Screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/auth_screen.dart';
+import '../Screens/chats_screen.dart';
+import '../Screens/profile_screen.dart';
 import '../Providers/User.dart';
 import '../Screens/home_screen.dart';
-import '../Screens/my_jobs.dart';
+import '../Screens/my_jobs_screen.dart';
 import '../Screens/post_job_screen.dart';
 
 class PostDrawer extends StatelessWidget {

@@ -15,4 +15,4 @@ class Job {
       @required this.imageUrl,
       @required this.payment,
       @required this.posterId});
-}
+} // Constructor

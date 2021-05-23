@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Fav.dart';
-import 'package:krow1/Providers/Jobs.dart';
-import 'package:krow1/Providers/User.dart';
 import 'package:provider/provider.dart';
 
+import '../Providers/Fav.dart';
+import '../Providers/Jobs.dart';
+import '../Providers/User.dart';
 import '../Widgets/post_drawer.dart';
 import '../Widgets/my_job_tile.dart';
 

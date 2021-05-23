@@ -13,5 +13,5 @@ class User {
     @required this.username,
     @required this.phone,
     @required this.imageUrl,
-  });
+  }); // Constructor
 }

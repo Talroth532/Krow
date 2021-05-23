@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/auth_screen.dart';
-import 'package:krow1/Screens/fav_job_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/auth_screen.dart';
+import '../Screens/fav_job_screen.dart';
 import '../Screens/chats_screen.dart';
 import '../Providers/User.dart';
 import '../Screens/Jobs_screen.dart';

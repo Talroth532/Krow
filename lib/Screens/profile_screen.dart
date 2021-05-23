@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:krow1/Widgets/post_drawer.dart';
-import 'package:krow1/Widgets/user_image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../Widgets/post_drawer.dart';
+import '../Widgets/user_image_picker.dart';
 import '../Providers/User.dart';
 import '../Widgets/drawer_form.dart';
 import '../models/user.dart';

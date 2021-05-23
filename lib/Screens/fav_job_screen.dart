@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/job_Screen.dart';
-import 'package:krow1/Widgets/drawer_form.dart';
-import 'package:krow1/Widgets/job_tile.dart';
-import 'package:krow1/models/job.dart';
 import 'package:provider/provider.dart';
 
+import '../Screens/job_Screen.dart';
+import '../Widgets/drawer_form.dart';
+import '../Widgets/job_tile.dart';
+import '../models/job.dart';
 import '../Providers/Fav.dart';
 import '../Providers/Jobs.dart';
 

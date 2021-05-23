@@ -6,7 +6,7 @@ import 'package:dcdg/dcdg.dart';
 import './Screens/fav_job_screen.dart';
 import './Providers/Fav.dart';
 import './Screens/chats_screen.dart';
-import './Screens/my_jobs.dart';
+import 'Screens/my_jobs_screen.dart';
 import './Providers/User.dart';
 import './Screens/post_job_screen.dart';
 import './Screens/job_screen.dart';

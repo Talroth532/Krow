@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:krow1/Screens/my_jobs.dart';
 
 import 'user_image_picker.dart';
 
@@ -33,6 +32,9 @@ class _PostFormState extends State<PostForm> {
     _userImageFile = image;
   }
 
+// טענת כניסה: הפעולה לא מקבלת משתנים
+// טענת יציאה: הפעולה מחזירה ערך בוליאני
+// הסבר: הפעולה בודקת את הנתונים שהוכנסו לתיבות הטקסט ואם הם מאושרים אז הפעולה של העלאת עבודה של הפרובידר רצה והפעולה מחזירה נכון ואם לא, הפעולה מחזירה לא נכון
   Future<bool> _trySubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();

@@ -2,13 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/messages.dart';
+import '../models/message.dart';
 import '../models/chat.dart';
 
 class Chats with ChangeNotifier {
   List<Chat> _chats;
-  List<Message> _messages;
 
+// טענת כניסה: הפעולה לא מקבלת ערכים.
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה ניגשת למסד הנתונים, לטבלת הצ'אטים ועוברת על ערכי הטבלה. כל ערך היא מכניסה לתוך משנתה מסוג רשימה של צ'אטים ובסוף הפעולה מכניסה את המשתנה לתוך המשתנה הפרטי של צ'אטים
   Future<void> fetchAndSetChats() async {
     print('fetching chats...');
     var chatSnapshot =
@@ -30,6 +32,9 @@ class Chats with ChangeNotifier {
     return [..._chats];
   }
 
+// טענת כניסה: הפעולה מקבלת מזהה של צ'אט
+// טענת יציאה: הפעולה מחזירה סטרים של רשימה של הודעות
+// הסבר: הפעולה ניגשת לטבלת ההודעות בצ'אט שהפעולה קיבלה את המזהה שלו ויוצרת קשר ישיר בעזרת סטרים עם טבלת ההודעות שמתעדכנת כל פעם שהטבלה מתעדנת
   Stream<List<Message>> fetchMessages(String chatId) {
     return Firestore.instance
         .collection('chats')
@@ -51,17 +56,11 @@ class Chats with ChangeNotifier {
         ).toList();
       },
     );
-    // var messagesDocs = messagesSnapshot.documents;
-    // _messages = List<Message>.generate(messagesDocs.length, (index) {
-    // return Message(
-    //   id: messagesDocs[index].documentID,
-    //   text: messagesDocs[index]['text'],
-    //   posterId: messagesDocs[index]['posterId'],
-    //   date: messagesDocs[index]['date'],
-    //   );
-    // });
   }
 
+  // טענת כניסה: הפעולה מקבלת מזהה של שני משתמשים
+  // טענת יציאה: הפעולה לא מחזירה כלום
+  // הסבר: הפעולה יוצרת ערך חדש בטבלת הצ'אטים במסד הנתונים ויוצרת מופע חדש של צ'אט ומחניסה אותו למשתנה הפרטי צ'אטים.
   Future<void> createNewChat(String uid1, String uid2) async {
     var doc = await Firestore.instance
         .collection('chats')
@@ -77,10 +76,9 @@ class Chats with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Message> get messages {
-    return [..._messages];
-  }
-
+// טענת כניסה: הפעולה מקבלת מזהה של צ'אט, מזהה של משתמש ומחרוזת.
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה יוצרת ערך חדש עם ההודעה שניכנסת לפעולה ומזהה המשתמש בטבלת ההודעות שבערך של המזהה של הצ'אט שהוכנס.
   Future<void> sendMessage(String cid, String uid, String enterdMessage) async {
     Firestore.instance
         .collection('chats')
@@ -93,12 +91,18 @@ class Chats with ChangeNotifier {
     });
   }
 
+  // טענת כניסה: הפעולה מקבלת מזהה של צ'אט
+  // טענת יציאה: הפעולה לא מחזירה כלום
+  // הסבר: הפעולה מוחקת את הצ'אט שהמזהה שלו היא מקבלת ממסד הנתונים ומהמשתנה הפרטי
   Future<void> removeChat(String cid) async {
     await Firestore.instance.collection('chats').document(cid).delete();
     _chats.removeWhere((element) => element.id == cid);
     notifyListeners();
   }
 
+  // טענת כניסה: הפעולה מקבלת מזהה של צ'אט ושל הודעה
+  // טענת יציאה: הפעולה לא מחזירה כלום
+  // הסבר: הפעולה מוחקת את ההודעה בצ'אט במסד הנתונים
   Future<void> removeMessage(String cid, String mid) async {
     await Firestore.instance
         .collection('chats')

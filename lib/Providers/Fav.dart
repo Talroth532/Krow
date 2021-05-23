@@ -10,6 +10,9 @@ class Fav with ChangeNotifier {
 
   Fav(this.uid);
 
+// טענת כניסה: הפעולה לא מקבלת ערכים.
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה ניגשת למסד הנתונים, לטבלת היוזר-ג'ובס ועוברת על ערכי הטבלה. כל ערך היא מכניסה לתוך המשתנה הפרטי מסוג רשימה של יוזר-גובס
   Future<void> fetchUidFavStatus() async {
     var favSnapshot = await Firestore.instance
         .collection('user-job')
@@ -27,6 +30,9 @@ class Fav with ChangeNotifier {
     }
   }
 
+// טענת כניסה: הפעולה מקבלת מזהה של עבודה.
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה יוצרת ערך חדש בטבלה ובמשתנה הפרטי עם המזהה של המשתמש ומזהה העבודה שמתקבלת בטענת הכניסה.
   Future<void> createNewFav(
     String jobId,
   ) async {
@@ -45,6 +51,9 @@ class Fav with ChangeNotifier {
     );
   }
 
+// טענת כניסה: הפעולה מקבלת מזהה של עבודה
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה בודקת במסד הנתונים אם קיים ערך עם המזהה של העבודה והמשתמש. אם קיים, הערך נמחק מהמסד נתונים ומהמשתנה הפרטי. אם לא, הפעולה מזמנת את הפעולה קרייט ניו פאב
   Future<void> updateStatus(
     String jobId,
   ) async {
@@ -79,6 +88,9 @@ class Fav with ChangeNotifier {
     }
   }
 
+// טענת כניסה: הפעולה מקבלת עבודה
+// טענת יציאה: הפעולה מחזירה ערך בוליאני
+// הסבר: הפעולה בודקת העם קיים ערך במשתנה הפרטי עם העבודה שמתקבלת. אם קיים, הפעולה מחזירה נכון ואם לא הפעולה מחזירה לא נכון
   bool checkIfExist(Job job) {
     if (this._userJobs.firstWhere((element) {
           return element.jobId == job.id;
@@ -89,6 +101,9 @@ class Fav with ChangeNotifier {
       return false;
   }
 
+// טענת כניסה: הפעולה מקבלת מזהה עבודה
+// טענת יציאה: הפעולה לא מחזירה כלום
+// הסבר: הפעולה מוחקת את כל הערכים הקשורים לעבודה שמתקבלת ממסד הנתונים ומהמשתנה הפרטי
   Future<void> removeJob(String jobId) async {
     var documents =
         await Firestore.instance.collection('user-job').getDocuments();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/models/messages.dart';
+import 'package:krow1/models/message.dart';
 import 'package:provider/provider.dart';
 import '../Providers/Chats.dart';
 import '../Providers/User.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Fav.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../Providers/Fav.dart';
 import '../Providers/Chats.dart';
 import '../Providers/User.dart';
 import '../Screens/post_job_screen.dart';
@@ -74,79 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text('Krow'),
             ),
-            body:
-                //Row(
-                //   children: [
-                //     FlatButton(
-                //       child: Container(
-                //         child: Stack(
-                //           children: [
-                //             Image.network(
-                //               'https://icon-library.com/images/social-media-icon-collage/social-media-icon-collage-12.jpg',
-                //               height: double.infinity,
-                //               fit: BoxFit.fill,
-                //             ),
-                //             Container(
-                //               child: Text(
-                //                 'Find\n\nA\n\nJob',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                   fontSize: 80,
-                //                   color: Colors.black,
-                //                 ),
-                //               ),
-                //             ),
-                //           ],
-                //           alignment: Alignment.center,
-                //         ),
-                //         width: (MediaQuery.of(context).size.width / 2) - 5,
-                //         height: double.infinity,
-                //         padding: EdgeInsets.all(0),
-                //       ),
-                //       onPressed: () {
-                //         Navigator.of(context).pushNamed(JobsScreen.routeName);
-                //       },
-                //       padding: EdgeInsets.all(0),
-                //     ),
-                //     Container(
-                //       width: 10,
-                //       height: double.infinity,
-                //       color: Colors.blue,
-                //     ),
-                //     FlatButton(
-                //       onPressed: () {
-                //         Navigator.of(context).pushNamed(PostJobScreen.routeName);
-                //       },
-                //       child: Container(
-                //         child: Stack(
-                //           children: [
-                //             Image.network(
-                //               '',
-                //               height: double.infinity,
-                //               fit: BoxFit.fill,
-                //             ),
-                //             Container(
-                //               child: Text(
-                //                 'Post\n\nA\n\nJob',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                   fontSize: 80,
-                //                   fontWeight: FontWeight.w600,
-                //                   color: Colors.black,
-                //                 ),
-                //               ),
-                //             ),
-                //           ],
-                //           alignment: Alignment.center,
-                //         ),
-                //         width: (MediaQuery.of(context).size.width / 2) - 5,
-                //         height: double.infinity,
-                //         padding: EdgeInsets.all(0),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                SingleChildScrollView(
+            body: SingleChildScrollView(
               child: Slidable(
                 key: const Key('id'),
                 child: SlideableHome(),
@@ -174,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-            ));
+            ),
+          );
   }
 }

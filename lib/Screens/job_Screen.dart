@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/Providers/Chats.dart';
-import 'package:krow1/Providers/User.dart';
-import 'package:krow1/Screens/chats_screen.dart';
-import 'package:krow1/models/user.dart';
 import 'package:provider/provider.dart';
 
+import '../Providers/Chats.dart';
+import '../Providers/User.dart';
+import '../Screens/chats_screen.dart';
+import '../models/user.dart';
 import '../models/job.dart';
 
 class JobScreen extends StatefulWidget {
   static const routeName = '/JobScreen';
-  // final Job job;
-
-  // JobScreen(this.job );
 
   @override
   _JobScreenState createState() => _JobScreenState();

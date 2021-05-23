@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:krow1/models/userJob.dart';
 import 'package:provider/provider.dart';
 
-import '../Providers/Fav.dart';
 import '../Providers/Jobs.dart';
 import 'job_screen.dart';
 import '../models/job.dart';
